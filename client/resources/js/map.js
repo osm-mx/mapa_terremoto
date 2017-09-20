@@ -7,6 +7,42 @@ $(function(){
 
 
 
+function newPoint(){
+    $("#newPoint").html("Ahora solo da clic donde quieras realizar el reporte");
+    $("#newPoint").addClass("disabled");
+    
+    map.on("mousemove", function(evt){
+        drawLayer.openTooltip(evt.latlng);
+        $("#map").css("cursor", "pointer");
+    });
+    
+    
+    map.on("mouseout", function(evt){
+        drawLayer.closeTooltip();
+        $("#map").css("cursor", "default");
+    });
+    
+    
+    map.on("click", function(evt){
+        
+        drawLayer.closeTooltip();
+        
+        $("#newPoint").html("Nuevo reporte");
+        $("#newPoint").removeClass("disabled");
+        
+        $("#map").css("cursor", "default");
+        
+        reportPoint = L.marker(evt.latlng);
+        
+        drawLayer.addLayer(reportPoint);
+        $('#pointDataDialog').modal('show');
+        
+        map.off();
+    });
+}
+
+
+
 function saveData(){
     console.log("saving data");
     
@@ -32,10 +68,19 @@ function saveData(){
             "delegacion_municipio": $("#mun").val(),
             "calle": $("#street").val(),
             "numero_ext": $("#streetNumber").val(),
-            "entre_calles": $("#betweenStreets").val(),
             "codigo_postal": $("#codigoPostal").val()
         }
     };
+    
+    var calle1 = $("#betweenStreets1").val();
+    var calle2 = $("#betweenStreets2").val();
+    if(calle1 !== ""){
+        geojson.properties["entre_calles"] = calle1;
+        
+        if( calle2 !== ""){
+            geojson.properties["entre_calles"] += " y " + calle2;
+        }
+    }
     
     window.insertPointNoGeo(geojson);
 }
@@ -140,6 +185,7 @@ function initMap(id){
     layerControl = L.control.layers({"OSM":osm, "Mapbox": mapboxTiles, "Mapbox Satellite": mapboxSatelliteTiles, "Mapquest": mapQuestTiles}, {}).addTo(map);
 
     drawLayer = L.featureGroup().addTo(map);
+    drawLayer.bindTooltip("Ahora solo da clic donde quieras realizar el reporte");
     
     
     // locate
@@ -161,9 +207,10 @@ function initMap(id){
         map.invalidateSize();
     });
     
+    /*
     var drawControl = buildDrawControl();
     map.addControl(drawControl);
-    
+    */
     
     
     reportesCiudadanos = L.geoJSON([], {

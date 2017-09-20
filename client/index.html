@@ -59,6 +59,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <button type="button" class="btn btn-primary navbar-btn" onclick="newPoint()" id="newPoint">Nuevo reporte</button>
                         <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#formDataDialog">Nuevo reporte sin información geografica</button>
                     </ul>
 
@@ -190,38 +191,43 @@
                                         </div>
                                         
                                         
-                                        <div class="form-group-sm">
+                                        <div class="form-group-sm" style="margin-bottom: 10px">
                                             <label for="city">Ciudad/localidad</label>
                                             <input type="text" id="city" class="form-control formValue"/>
                                         </div>
                                         
                                         
-                                        <div class="form-group-sm">
+                                        <div class="form-group-sm col-sm-6">
                                             <label for="mun">Delegación/municipio</label>
                                             <input type="text" id="mun" class="form-control formValue"/>
                                         </div>
                                         
                                         
-                                        <div class="form-group-sm">
+                                        <div class="form-group-sm col-sm-6">
                                             <label for="street">Calle</label>
                                             <input type="text" id="street" class="form-control formValue"/>
                                         </div>
                                         
                                         
-                                        <div class="form-group-sm">
+                                        <div class="form-group-sm col-sm-6">
                                             <label for="streetNumber">Número exterior</label>
                                             <input type="text" id="streetNumber" class="form-control formValue"/>
                                         </div>
                                         
-                                        <div class="form-group-sm">
+                                        <div class="form-group-sm col-sm-6">
                                             <label for="codigoPostal">Código postal</label>
                                             <input type="text" id="codigoPostal" class="form-control formValue"/>
                                         </div>
                                         
                                         
-                                        <div class="form-group-sm">
-                                            <label for="betweenStreets">Entre calles</label>
-                                            <input type="text" id="betweenStreets" class="form-control formValue"/>
+                                        <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
+                                            <label for="betweenStreets1">Entre calles</label>
+                                            <input type="text" id="betweenStreets1" class="form-control formValue" placeholder="Calle 1"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
+                                            <label for="betweenStreets2">&nbsp;</label>
+                                            <input type="text" id="betweenStreets2" class="form-control formValue" placeholder="Calle 2"/>
                                         </div>
                                         
                                         

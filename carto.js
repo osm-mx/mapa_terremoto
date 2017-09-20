@@ -97,6 +97,7 @@ function insertPoint(point, callback){
         query += ",'" + geojson.properties.tipo_apoyo + "','" + geojson.properties.contacto + "','" + geojson.properties.info_adicional + "','" + geojson.properties.tipo_dano+ "')";
         query += " RETURNING cartodb_id";
         
+        console.log(query)
 
         sql.execute(query).done(function(data) {
             geojson.properties.gid = data.rows[0].cartodb_id;
