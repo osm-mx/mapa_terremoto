@@ -75,17 +75,17 @@ function savePoint(){
 function addPoint(geojson){
     console.log("adding data", geojson);
     
-    
+    // TODO: fix -> el punto no se agrega al mapa
+    // el punto después de agregarse se debe de visualizar en el mapa en este momento el punto ya se guardo en la bd
     reportesCiudadanos.addData(geojson);
 }
 
 
 
 function paintPoints(featureCollection){
-    console.log(featureCollection)
     reportesCiudadanos.addData(featureCollection);
     
-    map.fitBounds(reportesCiudadanos.getBounds())
+    //map.fitBounds(reportesCiudadanos.getBounds())
 }
 
 
