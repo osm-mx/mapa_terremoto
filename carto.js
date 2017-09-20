@@ -9,7 +9,7 @@ var table = "mapeo_comunitario";
 
 
 var getPoints = function(callback){
-    sql.execute("SELECT ST_X(the_geom) as lng, ST_Y(the_geom) as lat,comment,cartodb_id as id,type,nivel_emergencia FROM " + table ).done(function(data) {
+    sql.execute("SELECT ST_X(the_geom) as lng, ST_Y(the_geom) as lat,* FROM " + table ).done(function(data) {
         var json;
 
         var featureCollection = {
@@ -17,16 +17,26 @@ var getPoints = function(callback){
             "features": []
         };
         
+        var skip = ["lng", "lat", "the_geom", "the_geom_webmercator"];
         for(var i = 0; i < data.rows.length; i++){
             try{
                 json = data.rows[i];
                 
                 var properties = {};
+                
+                for(var key in json){
+                    if(skip.indexOf(key)<0){
+                        properties[key] = json[key];
+                    }
+                }
+                
+                /*
                 properties.type = json.type;
                 properties.gid = json.id;
                 properties.comment = json.comment;
                 properties.nivel_emergencia = json.nivel_emergencia;
-
+                */
+                
                 featureCollection.features.push({
                     "type": "Feature",
                     "geometry": {

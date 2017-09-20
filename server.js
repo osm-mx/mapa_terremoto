@@ -12,14 +12,11 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 
 //sockets
-
 io.on('connection', function(socket){
     
-    /*
     cartodb.getPoints(function(featureCollection){
         socket.emit("getPoints", featureCollection);
     });
-    */
     
     socket.on("insertPoint", function(geojson, callback){
         cartodb.insertPoint(geojson, function(geojsonResponse){

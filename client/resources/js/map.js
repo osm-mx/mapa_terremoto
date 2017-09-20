@@ -54,7 +54,7 @@ function savePoint(){
         "type": "Feature",
         "geometry": {
         "type": "Point",
-            "coordinates": [latLng.lng, latLng.lat]
+            "coordinates": [latLng.lat, latLng.lng]
         },
         "properties": {
             "tipo_dano": $("#newPointMotivo").val(),
@@ -75,62 +75,17 @@ function savePoint(){
 function addPoint(geojson){
     console.log("adding data", geojson);
     
-    reportesCiudadanos.addData(geojson);
     
-    console.log(reportesCiudadanos, geojson);
+    reportesCiudadanos.addData(geojson);
 }
 
 
 
 function paintPoints(featureCollection){
-    reportesCiudadanos = L.geoJSON(featureCollection, {
-        pointToLayer: function(geojsonPoint, latLng){
-            console.log(geojsonPoint, latLng);
-            
-            switch(geojsonPoint.properties.type){
-                case "Edificio colapsado":
-                    markerColor = "cadetblue";
-                    markerIcon = "building";
-                    break;
-                    
-                case "Fuga de gas":
-                    markerColor = "blue";
-                    markerIcon = "exclamation";
-                    break;
-                    
-                case "Incendio":
-                    markerColor = "red";
-                    markerIcon = "fire";
-                    break;
-                
-                default:
-                    var markerColor = "red";
-                    var markerIcon = "exclamation";
-                    break;
-            }
-            
-            var marker = L.AwesomeMarkers.icon({
-                prefix: "fa",
-                icon: markerIcon,
-                markerColor: markerColor,
-                iconColor: "white"
-            });
-
-            return L.marker(latLng, {icon: marker});
-        }
-    });
+    console.log(featureCollection)
+    reportesCiudadanos.addData(featureCollection);
     
-    reportesCiudadanos.bindPopup(function (layer) {
-        var properties = layer.feature.properties;
-        
-        var content = "<b>" + properties.type + "</b><br><br>";
-        content += "Nivel de emergencia: " + properties.nivel_emergencia + "<br>";
-        content += "Comentario: " + decodeURI(properties.comment);
-        
-        return content;
-    }).addTo(map);
-    
-    layerControl.addOverlay(reportesCiudadanos, "Reportes ciudadanos");
+    map.fitBounds(reportesCiudadanos.getBounds())
 }
 
 
@@ -177,7 +132,7 @@ function initMap(id){
         zoom: 3,
         minZoom: 3,
         maxZoom: 18,
-        layers: osm, mapboxTiles, mapQuestTiles, mapboxSatelliteTiles,
+        layers: mapboxTiles,osm, mapQuestTiles, mapboxSatelliteTiles,
         editable: true
     });
     
@@ -208,6 +163,33 @@ function initMap(id){
     
     var drawControl = buildDrawControl();
     map.addControl(drawControl);
+    
+    
+    
+    reportesCiudadanos = L.geoJSON([], {
+        pointToLayer: function(geojsonPoint, latLng){
+            var marker = L.VectorMarkers.icon({
+                    icon: 'exclamation',
+                    markerColor: "red"
+                });
+
+            return L.marker(latLng, {icon: marker});
+        }
+    }).bindPopup(function (layer) {
+        var properties = layer.feature.properties;
+        
+        var content = "<b>" + properties.tipo_dano + "</b><br><br>";
+        
+        for(var key in properties){
+            if(key !== "tipo_dano"){
+                content += key + ": " + properties[key] + "<br>";
+            }
+        }
+        
+        return content;
+    }).addTo(map);
+    
+    layerControl.addOverlay(reportesCiudadanos, "Reportes ciudadanos");
 }
 
 

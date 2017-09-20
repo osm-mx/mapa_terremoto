@@ -11,6 +11,7 @@ window.insertPoint = function(geojson){
     socket.emit("insertPoint", geojson, function(id){
         $("#thanksModal").modal("show");
         window.cleanForms();
+        //window.addPoint(geojson);
     });
 };
 
