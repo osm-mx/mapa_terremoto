@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--     Movil
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        -->
+
+        <title>Reporte sismo</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <!-- Bootstrap-datarangepicker -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+        <!-- Bootstrap-slider -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" />
+        <!-- Bootstrap-select -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+        <!-- Leaflet-Draw-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.10/leaflet.draw.css" />
+        <!-- Leaflet-Locate control-->
+        <link rel="stylesheet" href="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.css" />
+        
+        <!--
+        <script src="resources/plugins/leaflet.geosearch.css" charset="utf-8"></script>
+        -->
+        
+        <link rel="stylesheet" href="resources/plugins/vector-markers/dist/leaflet-vector-markers.css" />
+        
+        <link rel="stylesheet" href="resources/css/app.css" />
+    </head>
+
+    <body>
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">
+                        Mapeo comunitario
+                    </a>
+                </div>
+
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#formDataDialog">Nuevo reporte sin información geografica</button>
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="nav navbar-nav navbar-right hidden-xs">
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <!-- Content -->
+        <div class="container" id="mapContainer">
+            <div id="map"></div>
+        </div>
+
+
+
+        <!-- Modals -->
+
+        
+
+
+        <!-- Point -->
+        <div id="pointDataDialog" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <!-- Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Información del reporte</h4>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <div class="content">
+                            <div class="row">
+                                <form id="formPointData">
+                                    <div class="col-sm-12 right-separator">
+                                        <div class="form-group-sm">
+                                            <label for="newPointMotivo">Tipo de daño:</label>
+                                            <select id="newPointMotivo" class="form-control">
+                                                <option value='Derrumbe total'>Derrumbe total</option>
+                                                <option value='Derrumbe parcial'>Derrumbe parcial</option>
+                                                <option value='Grietas'>Grietas</option>
+                                                <option value='Fuga de gas'>Fuga de gas</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="peopleAffected">Numero de personas afectadas</label>
+                                            <input type="number" id="peopleAffected" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="peopleInjured">Numero de personas heridas/fallecidas</label>
+                                            <input type="number" id="peopleInjured" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="supportType">¿Qué tipo de apoyo necesitan?</label>
+                                            <input type="text" id="supportType" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="contactInfo">Información de contacto</label>
+                                            <input type="text" id="contactInfo" class="form-control formValue" placeholder="telefono, email"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="otherInfo">Otra información</label>
+                                            <input type="text" id="otherInfo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="savePoint()">Guardar</button>
+                        <button type="button" class="btn btn-default" data-on-confirm="window.endDraw" data-toggle="confirmation" data-title="¿Estas seguro que deseas eliminar el dibujo?" data-popout="true" data-btn-ok-label="Si" data-btn-cancel-label="No">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <!-- Form no geo -->
+        <div id="formDataDialog" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <!-- Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Información del reporte</h4>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <div class="content">
+                            <div class="row">
+                                <form id="formData">
+                                    <div class="col-sm-12 right-separator">
+                                        <div class="form-group-sm">
+                                            <label for="newPointMotivoNoGeo">Tipo de daño:</label>
+                                            <select id="newPointMotivoNoGeo" class="form-control">
+                                                <option value='Derrumbe total'>Derrumbe total</option>
+                                                <option value='Derrumbe parcial'>Derrumbe parcial</option>
+                                                <option value='Grietas'>Grietas</option>
+                                                <option value='Fuga de gas'>Fuga de gas</option>
+                                            </select>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="city">Ciudad/localidad</label>
+                                            <input type="text" id="city" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="mun">Delegación/municipio</label>
+                                            <input type="text" id="mun" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="street">Calle</label>
+                                            <input type="text" id="street" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="streetNumber">Número exterior</label>
+                                            <input type="text" id="streetNumber" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="codigoPostal">Código postal</label>
+                                            <input type="text" id="codigoPostal" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="betweenStreets">Entre calles</label>
+                                            <input type="text" id="betweenStreets" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="peopleAffectedNoGeo">Personas afectadas</label>
+                                            <input type="number" id="peopleAffectedNoGeo" class="form-control  formValue"/>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="peopleInjuredNoGeo">Personas heridas/fallecidas</label>
+                                            <input type="number" id="peopleInjuredNoGeo" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="supportTypeNoGeo">¿Qué tipo de apoyo necesitan?</label>
+                                            <input type="text" id="supportTypeNoGeo" class="form-control formValue"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="contactInfoNoGeo">Información de contacto</label>
+                                            <input type="text" id="contactInfoNoGeo" class="form-control formValue" placeholder="telefono, email"/>
+                                        </div>
+                                        
+                                        <div class="form-group-sm">
+                                            <label for="otherInfoNoGeo">Otra información</label>
+                                            <input type="text" id="otherInfoNoGeo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="saveData()">Guardar</button>
+                        <button type="button" class="btn btn-default" data-on-confirm="window.cleanForms" data-toggle="confirmation" data-title="¿Estas seguro que deseas eliminar el reporte?" data-popout="true" data-btn-ok-label="Si" data-btn-cancel-label="No">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        <!-- Loading -->
+        <div class="modal fade" tabindex="-1" role="dialog"  id="thanksModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Reporte agregado correctamente</h4>
+                        Gracias por aportar tu información.
+                        
+                        <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        
+
+
+        <!-- Loading -->
+        <div class="modal fade" tabindex="-1" role="dialog"  id="chargingDialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Cargando...</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+        <!--    Moment    -->
+        <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+        <!-- shape -->
+        <script src="https://unpkg.com/shp-write@latest/shpwrite.js"></script>
+
+        <!-- jQuery-validator -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
+
+        <!-- socket.io -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!--Bootstrap-datarangepicker-->
+        <script src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <!--Bootstrap-slider-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
+        <!-- Bootstrap-select -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+        <!--Bootstrap-confirmation-->
+        <script src="resources/plugins/bootstrap.confirmation.js"></script>
+
+        <!-- Leaflet -->
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+        <!-- MapQuest Tiles -->
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ZJanp0xBDpPMOLftzxBrG1tzmNtsjPWF"></script>
+        <!-- Locate control-->
+        <script src="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.js" charset="utf-8"></script>
+        
+        
+        <script src="resources/plugins/vector-markers/dist/leaflet-vector-markers.js" charset="utf-8"></script>
+        
+        
+        <!--
+        <script src="resources/plugins/leaflet.geosearch.min.js" charset="utf-8"></script>
+        -->
+        
+
+        
+        <!--Draw-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.10/leaflet.draw.js"></script>
+
+        <script src="resources/js/socket.js"></script>
+        <script src="resources/js/app.js"></script>
+        <script src="resources/js/map.js"></script>
+    </body>
+</html>

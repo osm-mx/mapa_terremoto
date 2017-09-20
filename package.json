@@ -1,0 +1,29 @@
+{
+  "name": "mapa_crowdsourcing",
+  "version": "0.8.0",
+  "description": "Herramienta para reportes",
+  "main": "server.js",
+  "dependencies": {
+    "cartodb": "^0.5.1",
+    "express": "^4.15.4",
+    "geojson-validation": "^0.1.6",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "4.8.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mxabierto/crowdsourcing_sismo_19.git"
+  },
+  "author": "Leonel Castañeda <leonel.castaneda@datos.mx>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mxabierto/crowdsourcing_sismo_19/issues"
+  },
+  "homepage": "https://github.com/mxabierto/crowdsourcing_sismo_19#readme"
+}
