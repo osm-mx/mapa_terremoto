@@ -24,13 +24,13 @@
         <link rel="stylesheet" href="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.css" />
         <!-- Leaflet-PruneCluster -->
         <link rel="stylesheet" href="resources/plugins/leaflet.PruneCluster/LeafletStyleSheet.css">
-        
+
         <!--
         <script src="resources/plugins/leaflet.geosearch.css" charset="utf-8"></script>
         -->
-        
+
         <link rel="stylesheet" href="resources/plugins/vector-markers/dist/leaflet-vector-markers.css" />
-        
+
         <link rel="stylesheet" href="resources/css/app.css" />
     </head>
 
@@ -98,7 +98,7 @@
                         <div class="content">
                             <!-- modal tabs -->
                             <p class="text-justify">Mapa libre, abierto y colaborativo de <a target="_blank" href="http://www.openstreetmap.mx/">OpenStreetMap</a>.</p>
-                            
+
                             Fuentes actuales:
                             <ul class="list-group">
                                 <li class="list-group-item"><a target="_blank" href="http://google.org/crisismap/google.com/puebla-mexico-earthquake-es?hl=en&llbox=19.6919%2C19.0311%2C-98.0696%2C-99.8274&t=ROADMAP&layers=1%2C31%2C32%2C6%2C7%2C49%2C15%2C2%2C44">Crisis map</a></li>
@@ -107,11 +107,11 @@
                                 <li class="list-group-item"><a target="_blank" href="https://docs.google.com/spreadsheets/d/1vHrM6r3sO1f6ylsci_B7z08PrLsYKpG5VywjZXD6l5M/edit#gid=143622177">Manos a la obra</a></li>
                                 <li class="list-group-item"><a target="_blank" href="https://www.mapillary.com/">Mapillary</a></li>
                             </ul>
-                            
+
                             <p class="text-justify"><strong>Si tienes dudas, comentarios o propuestas de mejora agregalas en nuestro <a href="https://github.com/miguelsalazar/mapeo_colaborativo/issues" target="_blank">github</a></strong></p>
                         </div>
                     </div>
-    
+
                     <!-- Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -120,7 +120,7 @@
 
             </div>
         </div>
-        
+
 
 
         <!-- Point -->
@@ -151,34 +151,34 @@
                                                 <option value='Fuga de gas'>Fuga de gas</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="peopleAffected">Numero de personas afectadas</label>
                                             <input type="number" id="peopleAffected" class="form-control formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm">
                                             <label for="peopleInjured">Numero de personas heridas/fallecidas</label>
                                             <input type="number" id="peopleInjured" class="form-control formValue"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="supportType">¿Qué tipo de apoyo necesitan?</label>
                                             <input type="text" id="supportType" class="form-control formValue"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="contactInfo">Información de contacto</label>
                                             <input type="text" id="contactInfo" class="form-control formValue" placeholder="telefono, email"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="otherInfo">Otra información</label>
                                             <input type="text" id="otherInfo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                 </form>
 
@@ -195,11 +195,11 @@
                 </div>
             </div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <!-- Form no geo -->
         <div id="formDataDialog" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -228,69 +228,69 @@
                                                 <option value='Fuga de gas'>Fuga de gas</option>
                                             </select>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm" style="margin-bottom: 10px">
                                             <label for="city">Ciudad/localidad</label>
                                             <input type="text" id="city" class="form-control formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm col-sm-6">
                                             <label for="mun">Delegación/municipio</label>
                                             <input type="text" id="mun" class="form-control formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm col-sm-6">
                                             <label for="street">Calle</label>
                                             <input type="text" id="street" class="form-control formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm col-sm-6">
                                             <label for="streetNumber">Número exterior</label>
                                             <input type="text" id="streetNumber" class="form-control formValue"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm col-sm-6">
                                             <label for="codigoPostal">Código postal</label>
                                             <input type="text" id="codigoPostal" class="form-control formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
                                             <label for="betweenStreets1">Entre calles</label>
                                             <input type="text" id="betweenStreets1" class="form-control formValue" placeholder="Calle 1"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
                                             <label for="betweenStreets2">&nbsp;</label>
                                             <input type="text" id="betweenStreets2" class="form-control formValue" placeholder="Calle 2"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm">
                                             <label for="peopleAffectedNoGeo">Personas afectadas</label>
                                             <input type="number" id="peopleAffectedNoGeo" class="form-control  formValue"/>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="form-group-sm">
                                             <label for="peopleInjuredNoGeo">Personas heridas/fallecidas</label>
                                             <input type="number" id="peopleInjuredNoGeo" class="form-control formValue"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="supportTypeNoGeo">¿Qué tipo de apoyo necesitan?</label>
                                             <input type="text" id="supportTypeNoGeo" class="form-control formValue"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="contactInfoNoGeo">Información de contacto</label>
                                             <input type="text" id="contactInfoNoGeo" class="form-control formValue" placeholder="telefono, email"/>
                                         </div>
-                                        
+
                                         <div class="form-group-sm">
                                             <label for="otherInfoNoGeo">Otra información</label>
                                             <input type="text" id="otherInfoNoGeo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
@@ -310,11 +310,11 @@
 
             </div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <!-- Loading -->
         <div class="modal fade" tabindex="-1" role="dialog"  id="thanksModal">
             <div class="modal-dialog" role="document">
@@ -322,7 +322,7 @@
                     <div class="modal-body">
                         <h4>Reporte agregado correctamente</h4>
                         Gracias por aportar tu información.
-                        
+
                         <!-- Footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
@@ -333,7 +333,7 @@
         </div><!-- /.modal -->
 
 
-        
+
 
 
         <!-- Loading -->
@@ -367,7 +367,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
 
         <!-- socket.io -->
-        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 
         <!-- Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -390,7 +390,7 @@
         <script src="resources/plugins/vector-markers/dist/leaflet-vector-markers.js" charset="utf-8"></script>
         <!-- Leaflet.PruneCluster -->
         <script src="resources/plugins/leaflet.PruneCluster/PruneCluster.js"></script>
-        
+
 
         <script src="resources/js/socket.js"></script>
         <script src="resources/js/app.js"></script>
