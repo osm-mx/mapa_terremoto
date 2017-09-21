@@ -60,9 +60,16 @@ textarea {
 .point-other{
     background: #C0C0C0;
 }
+
+.point-blue{
+    background: blue;
+}
+
 #frequencyNewRouteSlider .slider-selection {
   background: #BABABA;
 }
 .btn:focus {
   outline: none;
 }
+
+

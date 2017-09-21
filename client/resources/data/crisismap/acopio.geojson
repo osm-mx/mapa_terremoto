@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"name": "acopio",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Bosque de Chapultepec, Puerta de los Leones", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.175711, 19.4231933, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Locatel", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1499681, 19.3514956, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Zócalo", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1332049, 19.4326018, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Abraham González 67", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.153893, 19.4296448, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Avenida San Fernando 160", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1671411, 19.2920558, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Procuraduría Ambiental y del Ordenamiento Territorial", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1644725, 19.4117922, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "SEDESO", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1400208, 19.4224269, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Casa Refugio Citlaltepetl", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1716566, 19.4092044, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Metro La Raza - STC Metro", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.136572, 19.469467, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Sistema M1", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1546109, 19.430264, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Campo Militar Marte", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1973349, 19.4246091, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "DIF Nacional", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.158179, 19.365916, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Almacén General del DIF", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1683694, 19.3556707, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Casa Hogar para Niñas Graciela Zubirán", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.186169, 19.3074184, 0.0 ] } }
+]
+}
