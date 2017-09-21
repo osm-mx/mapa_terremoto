@@ -210,12 +210,11 @@ function newPoint(){
         $("#newPoint").removeClass("disabled");
 
         $("#map").css("cursor", "default");
-
-
-
-        reportPoint = L.marker(evt.latlng);
-        
+        var reportPoint = L.marker(evt.latlng);
         drawLayer.addLayer(reportPoint);
+
+        $('#pointDataDialog').find('#latitude').val(evt.latlng.lat)
+        $('#pointDataDialog').find('#longitude').val(evt.latlng.lng)
         $('#pointDataDialog').modal('show');
 
         map.off();
@@ -273,9 +272,11 @@ function savePoint(){
 
     $("#pointDataDialog").modal("hide");
     window.drawLayer.clearLayers();
-    
-    
-    var latLng = window.reportPoint.getLatLng();
+
+    var latLng = {
+        lat: $('#pointDataDialog').find('#latitude').val(),
+        lng: $('#pointDataDialog').find('#longitude').val()
+    }
     var geojson = {
         "type": "Feature",
         "geometry": {
@@ -291,7 +292,7 @@ function savePoint(){
             "info_adicional": $("#otherInfo").val()
         }
     };
-    
+
     window.insertPoint(geojson);
 }
 
