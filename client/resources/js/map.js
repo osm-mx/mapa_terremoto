@@ -514,9 +514,10 @@ function initMap(id){
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
-        return "<img width='400px' src='https://d1cuyjsrcm0gby.cloudfront.net/" + properties.key + "/thumb-320.jpg' />";
-    }, {maxWidth: "400px"});
+        var clientId = "dmMtOThHZkp6TzdwYW1qaFZLc1J3UTpiZTlkYjUwMjc3NmMzNGI1";
+        var url = "https://embed-v1.mapillary.com/embed?show_segmentation=false&version=1&filter=%5B%22all%22%5D&map_filter=%5B%22all%22%5D&image_key=" + properties.key + "&client_id=" + clientId + "&style=photo";
+        return "<div style='overflow: hidden;' ><iframe width=\"480\" height=\"320\" src=\"" + url + "\" frameborder=\"0\"></iframe><br><button style=\"float:right;background-color: #4CAF50;border: none;color: white;padding: 5px 11px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;\" onclick=\"window.open('" + url + "','_blank','resizable=yes')\">Open in Mapillary</button></div>"
+    }, {maxWidth: "480px"});
     
     
     
