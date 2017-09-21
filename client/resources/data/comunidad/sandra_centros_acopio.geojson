@@ -1,0 +1,33 @@
+{
+"type": "FeatureCollection",
+"name": "comunidad_sandra_centros_acopio",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Plantel No 2 de Preparatoria Nezahualcoyotl", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6322525, 19.282122, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Plantel Cuauhtémoc de la Escuela Preparatoria", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6450579, 19.305114, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Preparatoria No. 4 \"Ignacio Ramirez\"", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6708558, 19.2957073, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Prepa 5", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.645111, 19.260353, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad de Medicina Universidad Autónoma del Estado de México", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6589136, 19.2721132, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad De Antropología UAEM", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6568829, 19.2744736, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad de Economía", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6762957, 19.2835112, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad de Ciencias Políticas y Sociales", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6791855, 19.2866448, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "facultad De Odontologia", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6582283, 19.2734556, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad de Humanidades", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6774272, 19.2796814, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Facultad de Ciencias Agrícolas de la UAEMex", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6907783, 19.4089235, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "UAEM: Campus Ecatepec", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.0576937, 19.5981039, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "EDIFICIO D CU UAEM VALLE DE CHALCO", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -98.9556974, 19.2992838, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "UAEM: Unidad Académica Profesional Cuautitlán Izcalli", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.2139105, 19.643974, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "UAEM chimalhuacan", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -98.868928, 19.4330861, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Estadio Universitario Alberto \"Chivo\" Córdova", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6762522, 19.2849387, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Estadio de Futbol Americano Juan Josafat Pichardo", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6576942, 19.2764815, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Uni Radio 99.7", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6230149, 19.2563974, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Ignacio Manuel Altamirano IMA", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6017627, 19.2748382, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "UVM Campus Toluca", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6149923, 19.2469556, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Oficinas Administrativas UAM-L", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.51946, 19.286719, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Snap Fitness Ceboruco", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6401605, 19.2592256, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Snap Fitness Plaza El Punto", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6316355, 19.3071742, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Snap Fitness Santin", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.5930587, 19.3511836, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Snap Fitness Plaza Ojuelos 24\/7", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6972954, 19.2887806, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Sanatorio México", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.6456758, 19.2826256, 0.0 ] } }
+]
+}

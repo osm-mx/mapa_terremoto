@@ -127,6 +127,7 @@ function addAlberguesData(){
 
 
 function addAcopioData(){
+    /*
     $.get("/resources/data/acopio_oficial.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
@@ -140,13 +141,20 @@ function addAcopioData(){
     $.get("/resources/data/crisismap/acopio.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
-    
+    */
     /*
     SAME DATA AS /resources/data/acopio_oficial.geojson
     $.get("/resources/data/crisismap/acopio_2.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
     */
+    
+    
+    // comunidad
+    $.get("/resources/data/comunidad/sandra_centros_acopio.geojson", function(geojson){
+        acopioLayer.addData(JSON.parse(geojson));
+    });
+    
 }
 
 
@@ -474,7 +482,7 @@ function initMap(id){
         }else{
             content = "<b>Centro de acopio</b><br><br>";
         }
-        var skip = ["lon", "lat", "link_google_maps", "Field1", "url_google_maps", "Tipo"];
+        var skip = ["lon", "lat", "link_google_maps", "Field1", "url_google_maps", "Tipo", "tessellate", "extrude", "visibility"];
         for(var key in properties){
             if(skip.indexOf(key) < 0){
                 content += "<b>" + key + "</b>: " + properties[key] + "<br>";
