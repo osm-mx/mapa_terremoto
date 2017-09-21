@@ -6,7 +6,7 @@ var exportLayer;
 
 $(function(){
     initMap("map");
-    
+
     addBuildingsData();
     addAcopioData();
     addAlberguesData();
@@ -27,26 +27,26 @@ function addTweetData(){
 function addOfrezcoNecesitoData(){
     $.get("/resources/data/ofrezco_necesito/ofresco_necesito.geojson", function(geojson){
         geojson = JSON.parse(geojson);
-        
+
         var ofrezco = [];
         var necesito = [];
-        
+
         var feature, properties;
         for(var i = 0; i < geojson.features.length; i++){
             feature = geojson.features[i];
             properties = feature.properties;
-            
+
             if(properties["Ofrezco/Necesito"]==="Ofrezco"){
                 ofrezco.push(feature);
             }else{
                 necesito.push(feature);
             }
         }
-        
+
         ofrezcoLayer.addData(ofrezco);
         necesitoLayer.addData(necesito);
     });
-    
+
 }
 
 
@@ -54,25 +54,25 @@ function addOfrezcoNecesitoData(){
 function addBuildingsData(){
     $.get("/resources/data/building_oficial.geojson", function(geojson){
         geojson = JSON.parse(geojson);
-        
+
         exportLayer.addData(geojson);
-        
+
         var feature, marker;
         for(var i = 0; i < geojson.features.length; i++){
             feature = geojson.features[i];
-            
+
             marker = buildMarker(feature.geometry.coordinates, feature.properties);
             buildingsLayer.RegisterMarker(marker);
         }
-        
-        
+
+
         $.get("/resources/data/building_crowd.geojson", function(geojson){
             geojson = JSON.parse(geojson);
-            
+
             var feature, marker;
             for(var i = 0; i < geojson.features.length; i++){
                 feature = geojson.features[i];
-                
+
                 marker = buildMarker(feature.geometry.coordinates, feature.properties);
                 buildingsLayer.RegisterMarker(marker);
             }
@@ -80,14 +80,14 @@ function addBuildingsData(){
             buildingsLayer.ProcessView();
         });
     });
-    
+
     $.get("/resources/data/crisismap/buildings.geojson", function(geojson){
         geojson = JSON.parse(geojson);
-        
+
         var feature, marker;
         for(var i = 0; i < geojson.features.length; i++){
             feature = geojson.features[i];
-            
+
             if(feature.geometry!==null){
                 marker = buildMarker(feature.geometry.coordinates, feature.properties);
                 buildingsLayer.RegisterMarker(marker);
@@ -104,18 +104,18 @@ function addAlberguesData(){
     $.get("/resources/data/albergues_oficial.geojson", function(geojson){
         alberguesLayer.addData(JSON.parse(geojson));
     });
-    
-    
+
+
     $.get("/resources/data/gmaps/albergues.geojson", function(geojson){
         alberguesLayer.addData(JSON.parse(geojson));
     });
-    
-    
+
+
     //crisismap
     $.get("/resources/data/crisismap/albergues.geojson", function(geojson){
         alberguesLayer.addData(JSON.parse(geojson));
     });
-    
+
     /*
     SAME DATA AS /resources/data/albergues_oficial
     $.get("/resources/data/crisismap/albergues_2.geojson", function(geojson){
@@ -131,12 +131,12 @@ function addAcopioData(){
     $.get("/resources/data/acopio_oficial.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
-    
-    
+
+
     $.get("/resources/data/acopio_crowd.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
-    
+
     //crisismap
     $.get("/resources/data/crisismap/acopio.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
@@ -148,13 +148,13 @@ function addAcopioData(){
         acopioLayer.addData(JSON.parse(geojson));
     });
     */
-    
-    
+
+
     // comunidad
     $.get("/resources/data/comunidad/sandra_centros_acopio.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
-    
+
 }
 
 
@@ -162,7 +162,7 @@ function addAcopioData(){
 function buildMarker(coordinates, properties){
     /*popup*/
     var content = "";
-    
+
     if(properties["tipo_daño"]){
         content = "<b>" + properties["tipo_daño"] + "</b><br><br>";
     }else if(properties["Name"]){
@@ -175,12 +175,12 @@ function buildMarker(coordinates, properties){
         }
     }
     content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
-    
-    
+
+
     var marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
     marker.data.icon = L.divIcon({className: "leaflet-div-icon-point point-blue" });
     marker.data.popup = content;
-    
+
     return marker;
 }
 
@@ -189,33 +189,35 @@ function buildMarker(coordinates, properties){
 function newPoint(){
     $("#newPoint").html("Ahora solo da clic donde quieras realizar el reporte");
     $("#newPoint").addClass("disabled");
-    
+
     map.on("mousemove", function(evt){
         drawLayer.openTooltip(evt.latlng);
         $("#map").css("cursor", "pointer");
     });
-    
-    
+
+
     map.on("mouseout", function(evt){
         drawLayer.closeTooltip();
         $("#map").css("cursor", "default");
     });
-    
-    
+
+
     map.on("click", function(evt){
-        
+
         drawLayer.closeTooltip();
-        
+
         $("#newPoint").html('<i class="fa fa-map-marker"></i>&nbsp;Nuevo reporte');
         $("#newPoint").removeClass("disabled");
-        
+
         $("#map").css("cursor", "default");
-        
+
+
+
         reportPoint = L.marker(evt.latlng);
         
         drawLayer.addLayer(reportPoint);
         $('#pointDataDialog').modal('show');
-        
+
         map.off();
     });
 }
@@ -224,10 +226,10 @@ function newPoint(){
 
 function saveData(){
     console.log("saving data");
-    
+
     $("#formDataDialog").modal("hide");
     window.drawLayer.clearLayers();
-    
+
     var geojson = {
         "type": "Feature",
         "geometry": {
@@ -241,8 +243,8 @@ function saveData(){
             "tipo_apoyo": $("#supportTypeNoGeo").val(),
             "contacto": $("#contactInfoNoGeo").val(),
             "info_adicional": $("#otherInfoNoGeo").val(),
-            
-            
+
+
             "ciudad_localidad": $("#city").val(),
             "delegacion_municipio": $("#mun").val(),
             "calle": $("#street").val(),
@@ -250,17 +252,17 @@ function saveData(){
             "codigo_postal": $("#codigoPostal").val()
         }
     };
-    
+
     var calle1 = $("#betweenStreets1").val();
     var calle2 = $("#betweenStreets2").val();
     if(calle1 !== ""){
         geojson.properties["entre_calles"] = calle1;
-        
+
         if( calle2 !== ""){
             geojson.properties["entre_calles"] += " y " + calle2;
         }
     }
-    
+
     window.insertPointNoGeo(geojson);
 }
 
@@ -268,7 +270,7 @@ function saveData(){
 
 function savePoint(){
     console.log("saving point");
-    
+
     $("#pointDataDialog").modal("hide");
     window.drawLayer.clearLayers();
     
@@ -298,7 +300,7 @@ function savePoint(){
 
 function addPoint(geojson){
     console.log("adding data", geojson);
-    
+
     // TODO: fix -> el punto no se agrega al mapa
     // el punto después de agregarse se debe de visualizar en el mapa en este momento el punto ya se guardo en la bd
     reportesCiudadanos.addData(geojson);
@@ -308,7 +310,7 @@ function addPoint(geojson){
 
 function paintPoints(featureCollection){
     reportesCiudadanos.addData(featureCollection);
-    
+
     //map.fitBounds(reportesCiudadanos.getBounds())
 }
 
@@ -337,7 +339,7 @@ function initMap(id){
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
-    
+
     // mapbox
     var mapboxTiles = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaW1sZW8iLCJhIjoiT0tfdlBSVSJ9.Qqzb4uGRSDRSGqZlV6koGg",{
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, Tiles thanks to © <a href="http://mapbox.com">Mapbox</a>'
@@ -359,14 +361,14 @@ function initMap(id){
         layers: mapboxTiles,osm, mapQuestTiles, mapboxSatelliteTiles,
         editable: true
     });
-    
-    
+
+
     var layerControl = L.control.layers({"OSM":osm, "Mapbox": mapboxTiles, "Mapbox Satellite": mapboxSatelliteTiles, "Mapquest": mapQuestTiles}, {}, {collapsed: true}).addTo(map);
 
     drawLayer = L.featureGroup().addTo(map);
     drawLayer.bindTooltip("Ahora solo da clic donde quieras realizar el reporte");
-    
-    
+
+
     // locate
     L.control.locate({
         strings: {
@@ -375,7 +377,7 @@ function initMap(id){
         },
         icon: "fa fa-location-arrow"
     }).addTo(map);
-    
+
     // Map bounds
     map.fitBounds(L.latLngBounds({lat: 19.54717273337944, lng: -98.87901306152345}, {lat: 19.25248771280758, lng: -99.34387207031251}));
 
@@ -383,8 +385,8 @@ function initMap(id){
     $(window).resize(function() {
         map.invalidateSize();
     });
-    
-    
+
+
     // reportes
     reportesCiudadanos = L.geoJSON([], {
         pointToLayer: function(geojsonPoint, latLng){
@@ -397,24 +399,24 @@ function initMap(id){
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
+
         var content = "<b>" + properties.tipo_dano + "</b><br><br>";
-        
+
         for(var key in properties){
             if(key !== "tipo_dano"){
                 content += key + ": " + properties[key] + "<br>";
             }
         }
-        
+
         return content;
     }).addTo(map);
-    
-    
-    
-    
+
+
+
+
     buildingsLayer = buildBuildingLayer();
-    
-    
+
+
     /*
     buildingsLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
@@ -422,7 +424,7 @@ function initMap(id){
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
+
         var content = "<b>" + properties["tipo_daño"] + "</b><br><br>";
         var skip = ["lon", "lat", "link_google_maps", "tipo_daño"];
         for(var key in properties){
@@ -430,13 +432,13 @@ function initMap(id){
                 content += "<b>" + key + "</b>: " + properties[key] + "<br>";
             }
         }
-        
+
         content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
         return content;
     }).addTo(map);
     */
-    
-    
+
+
     alberguesLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
             var marker = L.VectorMarkers.icon({
@@ -448,7 +450,7 @@ function initMap(id){
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
+
         var content = "<b>Albergue</b><br><br>";
         var skip = ["lon", "lat", "link_google_maps", "Tipo", "tessellate", "extrude", "visibility"];
         for(var key in properties){
@@ -456,14 +458,14 @@ function initMap(id){
                 content += "<b>" + key + "</b>: " + properties[key] + "<br>";
             }
         }
-        
-        
-        
+
+
+
         content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
         return content;
     })//.addTo(map);
-        
-        
+
+
     acopioLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
             var marker = L.VectorMarkers.icon({
@@ -475,7 +477,7 @@ function initMap(id){
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
+
         var content;
         if(properties["Tipo"]){
             content = "<b>" + properties["Tipo"] + "</b><br><br>";
@@ -488,21 +490,21 @@ function initMap(id){
                 content += "<b>" + key + "</b>: " + properties[key] + "<br>";
             }
         }
-        
-        
+
+
         if(properties["url_google_maps"]){
             content += "<br><a target='_blank' href='" + properties["url_google_maps"] + "'>link_google_maps</a><br>";
         }else if(properties["link_google_maps"]){
             content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
         }
-        
-        
+
+
         return content;
     })//.addTo(map);
-    
-    
-    
-    
+
+
+
+
     mapillaryLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
             var marker = L.VectorMarkers.icon({
@@ -518,56 +520,56 @@ function initMap(id){
         var url = "https://embed-v1.mapillary.com/embed?show_segmentation=false&version=1&filter=%5B%22all%22%5D&map_filter=%5B%22all%22%5D&image_key=" + properties.key + "&client_id=" + clientId + "&style=photo";
         return "<div style='overflow: hidden;' ><iframe width=\"480\" height=\"320\" src=\"" + url + "\" frameborder=\"0\"></iframe><br><button style=\"float:right;background-color: #4CAF50;border: none;color: white;padding: 5px 11px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;\" onclick=\"window.open('" + url + "','_blank','resizable=yes')\">Open in Mapillary</button></div>"
     }, {maxWidth: "480px"});
-    
-    
-    
-    
+
+
+
+
     ofrezcoLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
             return L.circleMarker(latLng, {radius: 5, color: "#54b2a9", fillColor: "#54b2a9"});
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
-        
+
+
         var content = "<b>Ofrezco: </b>" + properties["¿Qué ofrezco/necesito? (comida, hospedaje, agua, transporte, peritajes, etc.)"] + "<br><br>";
-        
+
         content += "Nombre: " + properties["Nombre"] + "<br>";
         content += "Contacto: " + properties["Contacto (Correo, Facebook, teléfono, WhatsApp, Twitter, etc.) (Nota: Esta información es pública, solo pon datos que creas pertinentes compartir)"] + "<br>";
-        
+
         return content;
     });
-    
-    
-    
-    
+
+
+
+
     necesitoLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
             return L.circleMarker(latLng, {radius: 5, color: "#ff2400", fillColor: "#ff2400"});
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
-        
+
         var content = "<b>Necesito: </b>" + properties["¿Qué ofrezco/necesito? (comida, hospedaje, agua, transporte, peritajes, etc.)"] + "<br><br>";
-        
+
         content += "Nombre: " + properties["Nombre"] + "<br>";
         content += "Contacto: " + properties["Contacto (Correo, Facebook, teléfono, WhatsApp, Twitter, etc.) (Nota: Esta información es pública, solo pon datos que creas pertinentes compartir)"] + "<br>";
-        
-        
+
+
         return content;
     });
-    
-    
+
+
     exportLayer = L.geoJSON();
     layerControl.addOverlay(reportesCiudadanos, "Reportes ciudadanos");
-    
-    
+
+
     layerControl.addOverlay(buildingsLayer, "Edificios afectados");
     layerControl.addOverlay(alberguesLayer, "Albergues");
     layerControl.addOverlay(acopioLayer, "Centros de acopio");
-    
+
     layerControl.addOverlay(mapillaryLayer, "Mapillary");
-    
+
     layerControl.addOverlay(ofrezcoLayer, "Ofrezco ayuda");
     layerControl.addOverlay(necesitoLayer, "Necesito ayuda");
 }
@@ -579,10 +581,10 @@ function initMap(id){
 
 
 function buildBuildingLayer(){
-    
+
     var pruneCluster = new PruneClusterForLeaflet();
     //setCustomMarker();
-    
+
     /*
     pruneCluster.BuildLeafletClusterIcon = function(cluster) {
         var e = new L.Icon.MarkerCluster();
@@ -643,7 +645,7 @@ function buildBuildingLayer(){
 
         return m;
     };
-    
+
     map.addLayer(pruneCluster);
     return pruneCluster;
 }
