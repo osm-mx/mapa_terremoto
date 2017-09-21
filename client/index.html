@@ -4,14 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--     Movil
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        -->
-
         <title>Reporte sismo</title>
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Bootstrap-datarangepicker -->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
         <!-- Bootstrap-slider -->
@@ -58,14 +54,14 @@
 
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav navbar-left">
                         <li><a data-toggle="modal" href="#modalAbout">Acerca del mapa</a></li>
-                        <button type="button" class="btn btn-primary navbar-btn" onclick="newPoint()" id="newPoint"><i class="fa fa-map-marker"></i>&nbsp;Nuevo reporte</button>
-                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#formDataDialog">Nuevo reporte sin información geografica</button>
+                        <li><button type="button" class="btn btn-primary navbar-btn" onclick="newPoint()" id="newPoint"><i class="fa fa-map-marker"></i>&nbsp;Nuevo reporte</button></li>
+                        <li><button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#formDataDialog">Nuevo reporte sin información geografica</button></li>
                     </ul>
 
                     <!-- Right -->
-                    <ul class="nav navbar-nav navbar-right hidden-xs">
+                    <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="https://github.com/miguelsalazar/mapeo_colaborativo" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Github</a>
                         </li>
@@ -374,7 +370,7 @@
         <script src="/socket.io/socket.io.js"></script>
 
         <!-- Bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!--Bootstrap-datarangepicker-->
         <script src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
         <!--Bootstrap-slider-->
