@@ -33,4 +33,4 @@ npm install
 ```
 npm start
 ```
-4. La aplicación corre por default en el puerto `22345`
+4. La aplicación corre por default en la dirección `http://localhost:22345`
