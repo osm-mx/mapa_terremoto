@@ -353,7 +353,7 @@ function initMap(id){
     });
     
     
-    var layerControl = L.control.layers({"OSM":osm, "Mapbox": mapboxTiles, "Mapbox Satellite": mapboxSatelliteTiles, "Mapquest": mapQuestTiles}, {}, {collapsed: false}).addTo(map);
+    var layerControl = L.control.layers({"OSM":osm, "Mapbox": mapboxTiles, "Mapbox Satellite": mapboxSatelliteTiles, "Mapquest": mapQuestTiles}, {}, {collapsed: true}).addTo(map);
 
     drawLayer = L.featureGroup().addTo(map);
     drawLayer.bindTooltip("Ahora solo da clic donde quieras realizar el reporte");
