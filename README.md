@@ -14,3 +14,25 @@ Librerias de desarrollo:
 - Leaflet
 - Bootstrap
 - Leaflet-draw (Libreria de dibujo en el mapa) (https://github.com/Leaflet/Leaflet.draw)
+
+Para instalar las dependencias:
+
+```
+npm install
+```
+
+Para levantar el proxy a la base de datos:
+
+```
+npm start
+```
+
+Para probar la heramienta es necesario un servidor local de archivos, por ejemplo http-server.
+
+
+```
+npm install -g http-server
+http-server client/
+```
+
+La herramienta estará disponible en [http://localhost:8080/](http://localhost:8080/):
