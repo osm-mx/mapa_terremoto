@@ -7,7 +7,10 @@
     "cartodb": "^0.5.1",
     "express": "^4.15.4",
     "geojson-validation": "^0.1.6",
-    "socket.io": "^2.0.3"
+    "kmz-geojson": "^0.1.0",
+    "node-schedule": "^1.2.5",
+    "socket.io": "^2.0.3",
+    "xmldom": "^0.1.27"
   },
   "devDependencies": {},
   "scripts": {

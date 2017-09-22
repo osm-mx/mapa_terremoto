@@ -1,31 +1,26 @@
-var map, drawLayer, reportPoint, reportesCiudadanos, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer;
-
+var map, drawLayer, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer;
+var buildingExportLayer;
 var radiusMarker = 3;
-
-var exportLayer;
 
 $(function(){
     initMap("map");
     
+    window.searchMplImages();
     addBuildingsData();
     addAcopioData();
     addAlberguesData();
     addOfrezcoNecesitoData();
-    addTweetData();
 });
 
 
 
-function addTweetData(){
-    $.get("/resources/data/mapillary/sismocdmx_images.geojson", function(geojson){
-        geojson = JSON.parse(geojson);
-        mapillaryLayer.addData(geojson);
-    });
+function addMplData(geojson){
+    mapillaryLayer.addData(geojson);
 }
 
 
 function addOfrezcoNecesitoData(){
-    $.get("/resources/data/ofrezco_necesito/ofresco_necesito.geojson", function(geojson){
+    $.get("/resources/data/ofrezco_necesito/ofrezco_necesito.geojson", function(geojson){
         geojson = JSON.parse(geojson);
         
         var ofrezco = [];
@@ -55,7 +50,7 @@ function addBuildingsData(){
     $.get("/resources/data/building_oficial.geojson", function(geojson){
         geojson = JSON.parse(geojson);
         
-        exportLayer.addData(geojson);
+        buildingExportLayer.addData(geojson);
         
         var feature, marker;
         for(var i = 0; i < geojson.features.length; i++){
@@ -76,7 +71,7 @@ function addBuildingsData(){
                 marker = buildMarker(feature.geometry.coordinates, feature.properties);
                 buildingsLayer.RegisterMarker(marker);
             }
-            exportLayer.addData(geojson);
+            buildingExportLayer.addData(geojson);
             buildingsLayer.ProcessView();
         });
     });
@@ -93,7 +88,7 @@ function addBuildingsData(){
                 buildingsLayer.RegisterMarker(marker);
             }
         }
-        exportLayer.addData(geojson);
+        buildingExportLayer.addData(geojson);
         buildingsLayer.ProcessView();
     });
 }
@@ -116,42 +111,53 @@ function addAlberguesData(){
         alberguesLayer.addData(JSON.parse(geojson));
     });
     
-    /*
-    SAME DATA AS /resources/data/albergues_oficial
-    $.get("/resources/data/crisismap/albergues_2.geojson", function(geojson){
-        alberguesLayer.addData(JSON.parse(geojson));
-    });
-    */
 }
 
 
 
 function addAcopioData(){
-    /*
     $.get("/resources/data/acopio_oficial.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
     
     
-    $.get("/resources/data/acopio_crowd.geojson", function(geojson){
-        acopioLayer.addData(JSON.parse(geojson));
+    $.get("https://acopio-api.skycatch.net/v1/acopios", function(json){
+        var features = [];
+        var feature;
+        for(var i = 0; i < json.length; i++){
+            feature = json[i];
+            
+             features.push({
+                "type":"Feature",
+                "geometry":{
+                    "type":"Point",
+                    "coordinates": [ feature.longitud, feature.latitud ]
+                },
+                "properties":{
+                    "Nombre": feature.nombre,
+                    "Direccion": feature.direccion,
+                    "Responsable": feature.responsables.nombre,
+                    "Contacto": feature.responsables.telefono
+                }
+            });
+        }
+        
+        acopioLayer.addData(features);
     });
     
     //crisismap
     $.get("/resources/data/crisismap/acopio.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
-    */
-    /*
-    SAME DATA AS /resources/data/acopio_oficial.geojson
-    $.get("/resources/data/crisismap/acopio_2.geojson", function(geojson){
-        acopioLayer.addData(JSON.parse(geojson));
-    });
-    */
     
     
     // comunidad
     $.get("/resources/data/comunidad/sandra_centros_acopio.geojson", function(geojson){
+        acopioLayer.addData(JSON.parse(geojson));
+    });
+    
+    // cni
+    $.get("/resources/data/cni/acopio.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
     
@@ -182,152 +188,6 @@ function buildMarker(coordinates, properties){
     marker.data.popup = content;
     
     return marker;
-}
-
-
-
-function newPoint(){
-    $("#newPoint").html("Ahora solo da clic donde quieras realizar el reporte");
-    $("#newPoint").addClass("disabled");
-    
-    map.on("mousemove", function(evt){
-        drawLayer.openTooltip(evt.latlng);
-        $("#map").css("cursor", "pointer");
-    });
-    
-    
-    map.on("mouseout", function(evt){
-        drawLayer.closeTooltip();
-        $("#map").css("cursor", "default");
-    });
-    
-    
-    map.on("click", function(evt){
-        
-        drawLayer.closeTooltip();
-        
-        $("#newPoint").html('<i class="fa fa-map-marker"></i>&nbsp;Nuevo reporte');
-        $("#newPoint").removeClass("disabled");
-        
-        $("#map").css("cursor", "default");
-        
-        reportPoint = L.marker(evt.latlng);
-        
-        drawLayer.addLayer(reportPoint);
-        $('#pointDataDialog').modal('show');
-        
-        map.off();
-    });
-}
-
-
-
-function saveData(){
-    console.log("saving data");
-    
-    $("#formDataDialog").modal("hide");
-    window.drawLayer.clearLayers();
-    
-    var geojson = {
-        "type": "Feature",
-        "geometry": {
-        "type": "Point",
-            "coordinates": [0, 0]
-        },
-        "properties": {
-            "tipo_dano": $("#newPointMotivoNoGeo").val(),
-            "personas_afectadas": $("#peopleAffectedNoGeo").val(),
-            "personas_heridas_fallecidas": $("#peopleInjuredNoGeo").val(),
-            "tipo_apoyo": $("#supportTypeNoGeo").val(),
-            "contacto": $("#contactInfoNoGeo").val(),
-            "info_adicional": $("#otherInfoNoGeo").val(),
-            
-            
-            "ciudad_localidad": $("#city").val(),
-            "delegacion_municipio": $("#mun").val(),
-            "calle": $("#street").val(),
-            "numero_ext": $("#streetNumber").val(),
-            "codigo_postal": $("#codigoPostal").val()
-        }
-    };
-    
-    var calle1 = $("#betweenStreets1").val();
-    var calle2 = $("#betweenStreets2").val();
-    if(calle1 !== ""){
-        geojson.properties["entre_calles"] = calle1;
-        
-        if( calle2 !== ""){
-            geojson.properties["entre_calles"] += " y " + calle2;
-        }
-    }
-    
-    window.insertPointNoGeo(geojson);
-}
-
-
-
-function savePoint(){
-    console.log("saving point");
-    
-    $("#pointDataDialog").modal("hide");
-    window.drawLayer.clearLayers();
-    
-    
-    var latLng = window.reportPoint.getLatLng();
-    var geojson = {
-        "type": "Feature",
-        "geometry": {
-        "type": "Point",
-            "coordinates": [latLng.lat, latLng.lng]
-        },
-        "properties": {
-            "tipo_dano": $("#newPointMotivo").val(),
-            "personas_afectadas": $("#peopleAffected").val(),
-            "personas_heridas_fallecidas": $("#peopleInjured").val(),
-            "tipo_apoyo": $("#supportType").val(),
-            "contacto": $("#contactInfo").val(),
-            "info_adicional": $("#otherInfo").val()
-        }
-    };
-    
-    window.insertPoint(geojson);
-}
-
-
-
-
-function addPoint(geojson){
-    console.log("adding data", geojson);
-    
-    // TODO: fix -> el punto no se agrega al mapa
-    // el punto después de agregarse se debe de visualizar en el mapa en este momento el punto ya se guardo en la bd
-    reportesCiudadanos.addData(geojson);
-}
-
-
-
-function paintPoints(featureCollection){
-    reportesCiudadanos.addData(featureCollection);
-    
-    //map.fitBounds(reportesCiudadanos.getBounds())
-}
-
-
-
-function endDraw(){
-    $("#pointDataDialog").modal("hide");
-
-    window.drawLayer.clearLayers();
-
-    $("#newPointComment").val("");
-    $('.newPointValue').val("");
-    $("#newPointLevel").val("1");
-}
-
-
-function cleanForms(){
-    $("#formDataDialog").modal("hide");
-    $(".formValue").val("");
 }
 
 
@@ -385,56 +245,7 @@ function initMap(id){
     });
     
     
-    // reportes
-    reportesCiudadanos = L.geoJSON([], {
-        pointToLayer: function(geojsonPoint, latLng){
-            var marker = L.VectorMarkers.icon({
-                    icon: 'exclamation',
-                    markerColor: "red"
-                });
-
-            return L.marker(latLng, {icon: marker});
-        }
-    }).bindPopup(function (layer) {
-        var properties = layer.feature.properties;
-        
-        var content = "<b>" + properties.tipo_dano + "</b><br><br>";
-        
-        for(var key in properties){
-            if(key !== "tipo_dano"){
-                content += key + ": " + properties[key] + "<br>";
-            }
-        }
-        
-        return content;
-    }).addTo(map);
-    
-    
-    
-    
     buildingsLayer = buildBuildingLayer();
-    
-    
-    /*
-    buildingsLayer = L.geoJSON(null, {
-        pointToLayer: function(geojsonPoint, latLng){
-            return L.circleMarker(latLng, {radius: radiusMarker});
-        }
-    }).bindPopup(function (layer) {
-        var properties = layer.feature.properties;
-        
-        var content = "<b>" + properties["tipo_daño"] + "</b><br><br>";
-        var skip = ["lon", "lat", "link_google_maps", "tipo_daño"];
-        for(var key in properties){
-            if(skip.indexOf(key) < 0){
-                content += "<b>" + key + "</b>: " + properties[key] + "<br>";
-            }
-        }
-        
-        content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
-        return content;
-    }).addTo(map);
-    */
     
     
     alberguesLayer = L.geoJSON(null, {
@@ -461,7 +272,7 @@ function initMap(id){
         
         content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
         return content;
-    })//.addTo(map);
+    });
         
         
     acopioLayer = L.geoJSON(null, {
@@ -498,19 +309,14 @@ function initMap(id){
         
         
         return content;
-    })//.addTo(map);
+    });
     
     
     
     
     mapillaryLayer = L.geoJSON(null, {
         pointToLayer: function(geojsonPoint, latLng){
-            var marker = L.VectorMarkers.icon({
-                icon: 'tweet',
-                markerColor: "cadetblue"
-            });
-
-            return L.circleMarker(latLng, {radius: 5, color: "#2e4930", fillColor: "#2e4930"});
+            return L.circleMarker(latLng, {radius: radiusMarker, color: "#2e4930", fillColor: "#2e4930"});
         }
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
@@ -558,9 +364,7 @@ function initMap(id){
     });
     
     
-    exportLayer = L.geoJSON();
-    layerControl.addOverlay(reportesCiudadanos, "Reportes ciudadanos");
-    
+    buildingExportLayer = L.geoJSON();
     
     layerControl.addOverlay(buildingsLayer, "Edificios afectados");
     layerControl.addOverlay(alberguesLayer, "Albergues");
@@ -579,7 +383,6 @@ function initMap(id){
 
 
 function buildBuildingLayer(){
-    
     var pruneCluster = new PruneClusterForLeaflet();
     //setCustomMarker();
     

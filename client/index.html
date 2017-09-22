@@ -8,12 +8,6 @@
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- Bootstrap-datarangepicker -->
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-        <!-- Bootstrap-slider -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" />
-        <!-- Bootstrap-select -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,11 +18,7 @@
         <link rel="stylesheet" href="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.css" />
         <!-- Leaflet-PruneCluster -->
         <link rel="stylesheet" href="resources/plugins/leaflet.PruneCluster/LeafletStyleSheet.css">
-
-        <!--
-        <script src="resources/plugins/leaflet.geosearch.css" charset="utf-8"></script>
-        -->
-
+        <!-- markers -->
         <link rel="stylesheet" href="resources/plugins/vector-markers/dist/leaflet-vector-markers.css" />
 
         <link rel="stylesheet" href="resources/css/app.css" />
@@ -56,8 +46,29 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-left">
                         <li><a data-toggle="modal" href="#modalAbout">Acerca del mapa</a></li>
-                        <li><button type="button" class="btn btn-primary navbar-btn" onclick="newPoint()" id="newPoint"><i class="fa fa-map-marker"></i>&nbsp;Nuevo reporte</button></li>
-                        <li><button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#formDataDialog">Nuevo reporte sin información geografica</button></li>
+                        
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aportar información <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScQsTKUAfTJizuKRn9frVO-vSqbP3lhI8y1J8cANs0B3-GNfA/viewform" ><span style='display:inline-block;'>&nbsp;Reporte de daños</span></a></li>
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScbX0JHs3OIdUNby9D2K8L60iKhlwlqsNYmDyVRr319trgucg/viewform" ><span style='display:inline-block;'>&nbsp;Centro de acopio</span></a></li>
+                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfprjEFTrEwk_rs5rH-c1E5CilxkkDul3LA_yvwULopvXXvtQ/viewform" ><span style='display:inline-block;'>&nbsp;Albergue</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Descargar compilado de los datos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><button class="btn btn-link" onclick="window.downloadEdificios();"><span style='display:inline-block;'>&nbsp;Edificios afectados</span></button></li>
+                                <li><button class="btn btn-link" onclick="window.downloadAlbergues();"><span style='display:inline-block;'>&nbsp;Albergues</span></button></li>
+                                <li><button class="btn btn-link" onclick="window.downloadAcopio();"><span style='display:inline-block;'>&nbsp;Centros de acopio</span></button></li>
+                                <li><button class="btn btn-link" onclick="window.downloadMapillary();"><span style='display:inline-block;'>&nbsp;Mapillary</span></button></li>
+                                <li><button class="btn btn-link" onclick="window.downloadOfrezco();"><span style='display:inline-block;'>&nbsp;Ofrezco ayuda</span></button></li>
+                                <li><button class="btn btn-link" onclick="window.downloadNecesito();"><span style='display:inline-block;'>&nbsp;Necesito ayuda</span></button></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right -->
@@ -98,17 +109,19 @@
                         <div class="content">
                             <!-- modal tabs -->
                             <p class="text-justify">Mapa libre, abierto y colaborativo de <a target="_blank" href="http://www.openstreetmap.mx/">OpenStreetMap</a>.</p>
-
+                            
                             Fuentes actuales:
                             <ul class="list-group">
-                                <li class="list-group-item"><a target="_blank" href="http://google.org/crisismap/google.com/puebla-mexico-earthquake-es?hl=en&llbox=19.6919%2C19.0311%2C-98.0696%2C-99.8274&t=ROADMAP&layers=1%2C31%2C32%2C6%2C7%2C49%2C15%2C2%2C44">Crisis map</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.gob.mx/">Mapa oficial de www.gob.mx</a></li>
+                                <li class="list-group-item"><a target="_blank" href="http://google.org/crisismap/google.com/puebla-mexico-earthquake-es?hl=en&llbox=19.6919%2C19.0311%2C-98.0696%2C-99.8274&t=ROADMAP&layers=1%2C31%2C32%2C6%2C7%2C49%2C15%2C2%2C44">Crisis map</a><span class="badge">Automatizado</span></li>
+                                <li class="list-group-item"><a target="_blank" href="https://www.gob.mx/">Mapa oficial de www.gob.mx</a><span class="badge">Automatizado parcial (acopio)</span></li>
                                 <li class="list-group-item"><a target="_blank" href="https://www.google.com/maps/d/u/0/viewer?mid=13B_gbt3e5RWk_6xQoQ15xxhGOFs&shorturl=1&ll=19.425243087912893%2C-99.14418954375003&z=13">Mapa de google maps</a></li>
                                 <li class="list-group-item"><a target="_blank" href="https://docs.google.com/spreadsheets/d/1vHrM6r3sO1f6ylsci_B7z08PrLsYKpG5VywjZXD6l5M/edit#gid=143622177">Manos a la obra</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.mapillary.com/">Mapillary</a></li>
+                                <li class="list-group-item"><a target="_blank" href="http://www.congresonacionalindigena.org/2017/09/21/mensaje-del-congreso-nacional-indigena-concejo-indigena-gobierno/">Congreso Nacional Indígena</a><span class="badge">Información no cambiante</span></li>
+                                <li class="list-group-item"><a target="_blank" href="https://www.mapillary.com/">Mapillary</a><span class="badge">Tiempo real</span></li>
                             </ul>
 
                             <p class="text-justify"><strong>Si tienes dudas, comentarios o propuestas de mejora agregalas en nuestro <a href="https://github.com/miguelsalazar/mapeo_colaborativo/issues" target="_blank">github</a></strong></p>
+                            <p class="text-justify">*Los datos automatizados se actualizan cada hora</p>
                         </div>
                     </div>
 
@@ -120,220 +133,6 @@
 
             </div>
         </div>
-
-
-
-        <!-- Point -->
-        <div id="pointDataDialog" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Información del reporte</h4>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <div class="content">
-                            <div class="row">
-                                <form id="formPointData">
-                                    <div class="col-sm-12 right-separator">
-                                        <div class="form-group-sm">
-                                            <label for="newPointMotivo">Tipo de daño:</label>
-                                            <select id="newPointMotivo" class="form-control">
-                                                <option value='Derrumbe total'>Derrumbe total</option>
-                                                <option value='Derrumbe parcial'>Derrumbe parcial</option>
-                                                <option value='Grietas'>Grietas</option>
-                                                <option value='Fuga de gas'>Fuga de gas</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="peopleAffected">Numero de personas afectadas</label>
-                                            <input type="number" id="peopleAffected" class="form-control formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm">
-                                            <label for="peopleInjured">Numero de personas heridas/fallecidas</label>
-                                            <input type="number" id="peopleInjured" class="form-control formValue"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="supportType">¿Qué tipo de apoyo necesitan?</label>
-                                            <input type="text" id="supportType" class="form-control formValue"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="contactInfo">Información de contacto</label>
-                                            <input type="text" id="contactInfo" class="form-control formValue" placeholder="telefono, email"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="otherInfo">Otra información</label>
-                                            <input type="text" id="otherInfo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
-                                        </div>
-
-
-                                    </div>
-                                </form>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="savePoint()">Guardar</button>
-                        <button type="button" class="btn btn-default" data-on-confirm="window.endDraw" data-toggle="confirmation" data-title="¿Estas seguro que deseas eliminar el dibujo?" data-popout="true" data-btn-ok-label="Si" data-btn-cancel-label="No">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Form no geo -->
-        <div id="formDataDialog" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Información del reporte</h4>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <div class="content">
-                            <div class="row">
-                                <form id="formData">
-                                    <div class="col-sm-12 right-separator">
-                                        <div class="form-group-sm">
-                                            <label for="newPointMotivoNoGeo">Tipo de daño:</label>
-                                            <select id="newPointMotivoNoGeo" class="form-control">
-                                                <option value='Derrumbe total'>Derrumbe total</option>
-                                                <option value='Derrumbe parcial'>Derrumbe parcial</option>
-                                                <option value='Grietas'>Grietas</option>
-                                                <option value='Fuga de gas'>Fuga de gas</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="form-group-sm" style="margin-bottom: 10px">
-                                            <label for="city">Ciudad/localidad</label>
-                                            <input type="text" id="city" class="form-control formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm col-sm-6">
-                                            <label for="mun">Delegación/municipio</label>
-                                            <input type="text" id="mun" class="form-control formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm col-sm-6">
-                                            <label for="street">Calle</label>
-                                            <input type="text" id="street" class="form-control formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm col-sm-6">
-                                            <label for="streetNumber">Número exterior</label>
-                                            <input type="text" id="streetNumber" class="form-control formValue"/>
-                                        </div>
-
-                                        <div class="form-group-sm col-sm-6">
-                                            <label for="codigoPostal">Código postal</label>
-                                            <input type="text" id="codigoPostal" class="form-control formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
-                                            <label for="betweenStreets1">Entre calles</label>
-                                            <input type="text" id="betweenStreets1" class="form-control formValue" placeholder="Calle 1"/>
-                                        </div>
-
-                                        <div class="form-group-sm col-sm-6" style="margin-bottom:10px;">
-                                            <label for="betweenStreets2">&nbsp;</label>
-                                            <input type="text" id="betweenStreets2" class="form-control formValue" placeholder="Calle 2"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm">
-                                            <label for="peopleAffectedNoGeo">Personas afectadas</label>
-                                            <input type="number" id="peopleAffectedNoGeo" class="form-control  formValue"/>
-                                        </div>
-
-
-                                        <div class="form-group-sm">
-                                            <label for="peopleInjuredNoGeo">Personas heridas/fallecidas</label>
-                                            <input type="number" id="peopleInjuredNoGeo" class="form-control formValue"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="supportTypeNoGeo">¿Qué tipo de apoyo necesitan?</label>
-                                            <input type="text" id="supportTypeNoGeo" class="form-control formValue"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="contactInfoNoGeo">Información de contacto</label>
-                                            <input type="text" id="contactInfoNoGeo" class="form-control formValue" placeholder="telefono, email"/>
-                                        </div>
-
-                                        <div class="form-group-sm">
-                                            <label for="otherInfoNoGeo">Otra información</label>
-                                            <input type="text" id="otherInfoNoGeo" class="form-control formValue" placeholder="Información que ayude a caracterizar mejor el punto"/>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="saveData()">Guardar</button>
-                        <button type="button" class="btn btn-default" data-on-confirm="window.cleanForms" data-toggle="confirmation" data-title="¿Estas seguro que deseas eliminar el reporte?" data-popout="true" data-btn-ok-label="Si" data-btn-cancel-label="No">Cancelar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Loading -->
-        <div class="modal fade" tabindex="-1" role="dialog"  id="thanksModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4>Reporte agregado correctamente</h4>
-                        Gracias por aportar tu información.
-
-                        <!-- Footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-
-
 
 
         <!-- Loading -->
@@ -360,23 +159,9 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
-        <!-- shape -->
-        <script src="https://unpkg.com/shp-write@latest/shpwrite.js"></script>
-
-        <!-- jQuery-validator -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.js"></script>
-
-        <!-- socket.io -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-
         <!-- Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!--Bootstrap-datarangepicker-->
-        <script src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-        <!--Bootstrap-slider-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
-        <!-- Bootstrap-select -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+        
         <!--Bootstrap-confirmation-->
         <script src="resources/plugins/bootstrap.confirmation.js"></script>
 
@@ -391,9 +176,10 @@
         <!-- Leaflet.PruneCluster -->
         <script src="resources/plugins/leaflet.PruneCluster/PruneCluster.js"></script>
 
-
-        <script src="resources/js/socket.js"></script>
+        <script src="resources/plugins/FileSaver.min.js"></script>
+        <script src="resources/js/mpl.js"></script>
         <script src="resources/js/app.js"></script>
+        <script src="resources/js/download.js"></script>
         <script src="resources/js/map.js"></script>
     </body>
 </html>

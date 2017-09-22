@@ -1,16 +1,16 @@
 {
 "type": "FeatureCollection",
-"name": "albergues_gmaps",
+"name": "albergues",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "Name": "Ciudad Deportiva Magdalena Mixhuca", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.0885257, 19.4047139, 0.0 ] } },
-{ "type": "Feature", "properties": { "Name": "Zócalo", "description": "Actualizado 9:19am. Se necesitan bolsas plástico<br>Cascos<br>Picos<br>Palas<br>Marros<br>Martillos<br>Arneses<br>Clavos de 2\" y +<br>Diesel", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1332049, 19.4326018, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Delegación Iztacalco", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.0971625, 19.3957175, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Universidad Iberoamericana", "description": "\"Comunidad podrá permanecer en áreas comunes de IBERO e, incluso, en caso de necesidad, tendrá opción de pasar la noche en las instalaciones\".", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.264007, 19.3700747, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Estudios Argos", "description": "\"¡AVISO! PONEMOS A DISPOSICIÓN DE LAS AUTORIDADES Y DE LA CIUDADANÍA NUESTRAS INSTALACIONES. PODEMOS SER ALBERGUE. COMPARTE PARA AYUDAR\".", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.2012125, 19.5417843, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Deportivo La Joya", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1682229, 19.2794671, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Parque México", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1691057, 19.411927, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Jardín Pushkin", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.154167, 19.420378, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "5:06 Avenida Cuauhtémoc 187", "description": "Regalan combustible para motocicletas o vehículos que trasladen víveres a zonas necesitadas.", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1547178, 19.416107, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Centro Social y Cultural Grupo Modelo", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1689678, 19.443235, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Deportivo José María Morelos y Pavón", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1933737, 19.4489988, 0.0 ] } },
 { "type": "Feature", "properties": { "Name": "Parque Lira", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.18751, 19.4039852, 0.0 ] } },

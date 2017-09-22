@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "acopio_cdmx",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Rincon Zapatista \/ Cafetería Comandanta Ramona", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1385999, 19.4220171, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Local de Unios", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -99.1525988, 19.424777, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Centro de Derechos Humanos Digna Ochoa A. C.", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -93.7670239, 16.0875351, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Asamblea de Pueblos Indígenas en Defensa de la Tierra", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -95.0101007, 16.4360064, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Radio Totopo", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ -95.0130139, 16.4273517, 0.0 ] } }
+]
+}
