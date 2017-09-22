@@ -41,7 +41,6 @@ function addOfrezcoNecesitoData(){
         ofrezcoLayer.addData(ofrezco);
         necesitoLayer.addData(necesito);
     });
-    
 }
 
 
@@ -335,11 +334,13 @@ function initMap(id){
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
         
-        
-        var content = "<b>Ofrezco: </b>" + properties["¿Qué ofrezco/necesito? (comida, hospedaje, agua, transporte, peritajes, etc.)"] + "<br><br>";
-        
-        content += "Nombre: " + properties["Nombre"] + "<br>";
-        content += "Contacto: " + properties["Contacto (Correo, Facebook, teléfono, WhatsApp, Twitter, etc.) (Nota: Esta información es pública, solo pon datos que creas pertinentes compartir)"] + "<br>";
+        var skip = ["Timestamp"];
+        var content = "";
+        for(var key in properties){
+            if(skip.indexOf(key) < 0){
+                content += "<b>" + key + "</b>: " + properties[key] + "<br>";
+            }
+        }
         
         return content;
     });
@@ -354,11 +355,14 @@ function initMap(id){
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
         
-        var content = "<b>Necesito: </b>" + properties["¿Qué ofrezco/necesito? (comida, hospedaje, agua, transporte, peritajes, etc.)"] + "<br><br>";
         
-        content += "Nombre: " + properties["Nombre"] + "<br>";
-        content += "Contacto: " + properties["Contacto (Correo, Facebook, teléfono, WhatsApp, Twitter, etc.) (Nota: Esta información es pública, solo pon datos que creas pertinentes compartir)"] + "<br>";
-        
+        var skip = ["Timestamp"];
+        var content = "";
+        for(var key in properties){
+            if(skip.indexOf(key) < 0){
+                content += "<b>" + key + "</b>: " + properties[key] + "<br>";
+            }
+        }
         
         return content;
     });

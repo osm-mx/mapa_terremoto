@@ -1,7 +1,7 @@
 {
-  "name": "mapa_crowdsourcing",
+  "name": "mapa.mexicosismo",
   "version": "0.8.0",
-  "description": "Herramienta para reportes",
+  "description": "Herramienta para la consolidación de la información dispersa y relevante al sismo.",
   "main": "server.js",
   "dependencies": {
     "cartodb": "^0.5.1",
@@ -23,10 +23,10 @@
     "type": "git",
     "url": "git+https://github.com/mxabierto/crowdsourcing_sismo_19.git"
   },
-  "author": "Leonel Castañeda <leonel.castaneda@datos.mx>",
+  "author": "Leonel Castañeda <ledcastaneda@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mxabierto/crowdsourcing_sismo_19/issues"
+    "url": "https://github.com/miguelsalazar/mapeo_colaborativo/issues"
   },
-  "homepage": "https://github.com/mxabierto/crowdsourcing_sismo_19#readme"
+  "homepage": "https://github.com/miguelsalazar/mapeo_colaborativo#readme"
 }

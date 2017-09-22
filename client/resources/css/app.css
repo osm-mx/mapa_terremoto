@@ -73,7 +73,7 @@ textarea {
 }
 
 
-@media (max-width: 815px) {
+@media (max-width: 920px) {
     .navbar-header {
         float: none;
     }
