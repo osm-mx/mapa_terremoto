@@ -13,10 +13,100 @@ $(function(){
 });
 
 
-
 function addMplData(geojson){
     mapillaryLayer.addData(geojson);
 }
+
+
+
+function addBuildingsData(){
+    $.get("/resources/data/gob.mx/building_crowd.geojson", function(geojson){
+        geojson = JSON.parse(geojson);
+        
+        var feature, marker;
+        for(var i = 0; i < geojson.features.length; i++){
+            feature = geojson.features[i];
+            
+            marker = buildMarker(feature.geometry.coordinates, feature.properties);
+            buildingsLayer.RegisterMarker(marker);
+        }
+        buildingExportLayer.addData(geojson);
+        buildingsLayer.ProcessView();
+    });
+        
+    
+    $.get("/resources/data/gob.mx/building_oficial.geojson", function(geojson){
+        geojson = JSON.parse(geojson);
+        
+        var feature, marker;
+        for(var i = 0; i < geojson.features.length; i++){
+            feature = geojson.features[i];
+            
+            marker = buildMarker(feature.geometry.coordinates, feature.properties);
+            buildingsLayer.RegisterMarker(marker);
+        }
+        
+        buildingExportLayer.addData(geojson);
+        buildingsLayer.ProcessView();
+    });
+    
+    
+    $.get("/resources/data/crisismap/buildings.geojson", function(geojson){
+        geojson = JSON.parse(geojson);
+        
+        var feature, marker;
+        for(var i = 0; i < geojson.features.length; i++){
+            feature = geojson.features[i];
+            
+            if(feature.geometry!==null){
+                marker = buildMarker(feature.geometry.coordinates, feature.properties);
+                buildingsLayer.RegisterMarker(marker);
+            }
+        }
+        
+        buildingExportLayer.addData(geojson);
+        buildingsLayer.ProcessView();
+    });
+    
+    // verificado 19s
+    $.get("/resources/data/horizontal/buildings.geojson", function(geojson){
+        geojson = JSON.parse(geojson);
+        
+        var feature, marker;
+        for(var i = 0; i < geojson.features.length; i++){
+            feature = geojson.features[i];
+            
+            if(feature.geometry!==null){
+                marker = buildMarker(feature.geometry.coordinates, feature.properties);
+                buildingsLayer.RegisterMarker(marker);
+            }
+        }
+        
+        buildingExportLayer.addData(geojson);
+        buildingsLayer.ProcessView();
+    });
+    
+    
+    $.get("/resources/data/horizontal/buildings_c5.geojson", function(geojson){
+        geojson = JSON.parse(geojson);
+        
+        var feature, marker;
+        for(var i = 0; i < geojson.features.length; i++){
+            feature = geojson.features[i];
+            
+            if(feature.geometry!==null){
+                marker = buildMarker(feature.geometry.coordinates, feature.properties);
+                buildingsLayer.RegisterMarker(marker);
+            }
+        }
+        
+        buildingExportLayer.addData(geojson);
+        buildingsLayer.ProcessView();
+    });
+    
+}
+
+
 
 
 function addOfrezcoNecesitoData(){
@@ -45,57 +135,8 @@ function addOfrezcoNecesitoData(){
 
 
 
-function addBuildingsData(){
-    $.get("/resources/data/building_oficial.geojson", function(geojson){
-        geojson = JSON.parse(geojson);
-        
-        buildingExportLayer.addData(geojson);
-        
-        var feature, marker;
-        for(var i = 0; i < geojson.features.length; i++){
-            feature = geojson.features[i];
-            
-            marker = buildMarker(feature.geometry.coordinates, feature.properties);
-            buildingsLayer.RegisterMarker(marker);
-        }
-        
-        
-        $.get("/resources/data/building_crowd.geojson", function(geojson){
-            geojson = JSON.parse(geojson);
-            
-            var feature, marker;
-            for(var i = 0; i < geojson.features.length; i++){
-                feature = geojson.features[i];
-                
-                marker = buildMarker(feature.geometry.coordinates, feature.properties);
-                buildingsLayer.RegisterMarker(marker);
-            }
-            buildingExportLayer.addData(geojson);
-            buildingsLayer.ProcessView();
-        });
-    });
-    
-    $.get("/resources/data/crisismap/buildings.geojson", function(geojson){
-        geojson = JSON.parse(geojson);
-        
-        var feature, marker;
-        for(var i = 0; i < geojson.features.length; i++){
-            feature = geojson.features[i];
-            
-            if(feature.geometry!==null){
-                marker = buildMarker(feature.geometry.coordinates, feature.properties);
-                buildingsLayer.RegisterMarker(marker);
-            }
-        }
-        buildingExportLayer.addData(geojson);
-        buildingsLayer.ProcessView();
-    });
-}
-
-
-
 function addAlberguesData(){
-    $.get("/resources/data/albergues_oficial.geojson", function(geojson){
+    $.get("/resources/data/gob.mx/albergues_oficial.geojson", function(geojson){
         alberguesLayer.addData(JSON.parse(geojson));
     });
     
@@ -115,7 +156,7 @@ function addAlberguesData(){
 
 
 function addAcopioData(){
-    $.get("/resources/data/acopio_oficial.geojson", function(geojson){
+    $.get("/resources/data/gob.mx/acopio_oficial.geojson", function(geojson){
         acopioLayer.addData(JSON.parse(geojson));
     });
     
@@ -160,33 +201,6 @@ function addAcopioData(){
         acopioLayer.addData(JSON.parse(geojson));
     });
     
-}
-
-
-
-function buildMarker(coordinates, properties){
-    /*popup*/
-    var content = "";
-    
-    if(properties["tipo_daño"]){
-        content = "<b>" + properties["tipo_daño"] + "</b><br><br>";
-    }else if(properties["Name"]){
-        content = "<b>" + properties["Name"] + "</b><br><br>";
-    }
-    var skip = ["lon", "lat", "link_google_maps", "tipo_daño", "Name", "tessellate", "extrude", "visibility"];
-    for(var key in properties){
-        if(skip.indexOf(key) < 0){
-            content += "<b>" + key + "</b>: " + properties[key] + "<br>";
-        }
-    }
-    content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
-    
-    
-    var marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
-    marker.data.icon = L.divIcon({className: "leaflet-div-icon-point point-blue" });
-    marker.data.popup = content;
-    
-    return marker;
 }
 
 
@@ -525,6 +539,38 @@ function setCustomMarker(){
     });
 }
 
+
+function buildMarker(coordinates, properties){
+    /*popup*/
+    var content = "";
+    
+    if(properties["tipo_daño"]){
+        content = "<b>" + properties["tipo_daño"] + "</b><br><br>";
+    }else if(properties["Name"]){
+        content = "<b>" + properties["Name"] + "</b><br><br>";
+    }
+    
+    var skip = ["lon", "lat", "link_google_maps", "tipo_daño", "Name", "tessellate", "extrude", "visibility", "Timestamp", "latitud", "longitud", "field_1"];
+    for(var key in properties){
+        if(skip.indexOf(key) < 0){
+            if(properties[key] && properties[key]!=="" && properties[key]!=="Si tienes info entra a: http://bit.ly/Verificado19s"){
+                content += "<b>" + key + "</b>: " + properties[key] + "<br>";
+            }
+        }
+    }
+    
+    
+    if(properties["link_google_maps"]){
+        content += "<br><a target='_blank' href='" + properties["link_google_maps"] + "'>link_google_maps</a><br>";
+    }
+    
+    
+    var marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
+    marker.data.icon = L.divIcon({className: "leaflet-div-icon-point point-blue" });
+    marker.data.popup = content;
+    
+    return marker;
+}
 
 
 /*global $ L MQ*/
