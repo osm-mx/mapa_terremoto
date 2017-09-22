@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "acopio_oficial",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Tipo": "Centro de Acopio Campo Marte", "lugar\/sitio": "Avenida Paseo de La Reforma, Miguel Hidalgo, San Miguel Chapultepec, 11850 Ciudad de México, CDMX", "tipo_de_apoyo": "Víveres", "estado": "Ciudad de México", "contacto": "01 55 7375 8454", "mas_informacion": "-", "url_google_maps": "https:\/\/www.google.com.mx\/maps\/search\/19.424607,+-99.197338?sa=X&ved=0ahUKEwjtwfnK2bTWAhWFPCYKHQn4BcEQ8gEIJjAA" }, "geometry": { "type": "Point", "coordinates": [ -99.197338, 19.424607 ] } },
+{ "type": "Feature", "properties": { "Tipo": "Centro de Acopio Polanco (Cruz Roja)", "lugar\/sitio": "Polanco I, 11510 Miguel Hidalgo, CDMX", "tipo_de_apoyo": "Víveres", "estado": "Ciudad de México", "contacto": "01 55 5395 1111", "mas_informacion": "-", "url_google_maps": "https:\/\/www.google.com.mx\/maps\/search\/19.437748,+-99.208989?sa=X&ved=0ahUKEwiM34eF2bTWAhVG1CYKHS1hAUsQ8gEIJjAA" }, "geometry": { "type": "Point", "coordinates": [ -99.208989, 19.437748 ] } }
+]
+}
