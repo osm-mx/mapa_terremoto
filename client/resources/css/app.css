@@ -141,7 +141,7 @@ textarea {
 .form-map .form-group{
   height: 100%;
 }
-.form-map{
+.form-map.active{
   height: 100%;
 }
 .form-map .list-group-item{

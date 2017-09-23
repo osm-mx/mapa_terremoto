@@ -30,6 +30,7 @@ $(function(){
 
 	$('#search').bootcomplete({
 		filter:function(term){
+			$(".form-map").addClass("active");
 			//Debounce event
 			return new Promise(function(resolve){
 				buildHashes();
@@ -69,7 +70,11 @@ $(function(){
 				},0);	
 			})
 		},
+		hide:function(){
+			$(".form-map").removeClass("active");
+		},
 		select:function(id,type){
+			$(".form-map").removeClass("active");
 			switch(type){
 				case "Edificio":
 					map.addLayer(buildingsLayer);  
