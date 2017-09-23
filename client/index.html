@@ -76,6 +76,7 @@
                                 <li><button class="btn btn-link" onclick="window.downloadNecesito();"><span style='display:inline-block;'>&nbsp;Necesito ayuda</span></button></li>
                             </ul>
                         </li>
+                        
                     </ul>
 
                     <!-- Right -->
@@ -92,6 +93,11 @@
 
         <!-- Content -->
         <div class="container" id="mapContainer">
+            <form class="form-map">
+                <div class="form-group">
+                    <input id="search" name="search" type="text" class="form-control" placeholder="Buscar">
+                </div>
+            </form>
             <div id="map"></div>
         </div>
 
@@ -184,9 +190,12 @@
         <script src="resources/plugins/leaflet.PruneCluster/PruneCluster.js"></script>
 
         <script src="resources/plugins/FileSaver.min.js"></script>
+        <script src="resources/plugins/jquery.bootcomplete.min.js"></script>
+
         <script src="resources/js/mpl.js"></script>
         <script src="resources/js/app.js"></script>
         <script src="resources/js/download.js"></script>
         <script src="resources/js/mapa.js"></script>
+        <script src="resources/js/search.js"></script>
     </body>
 </html>

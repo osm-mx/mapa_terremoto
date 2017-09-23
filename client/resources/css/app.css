@@ -109,3 +109,47 @@ textarea {
         display:block !important;
     }
 }
+
+.bc-wrapper{
+    position: relative;
+    height: 100%;
+}
+
+.bc-wrapper .bc-menu{
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    display: none;
+    height: calc(100% - 60px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.input-group .bc-wrapper .bc-menu {
+    top: 38px;
+}
+#mapContainer{
+  position: relative;
+}
+.form-map{
+  position: absolute;
+  width:203px;
+  z-index: 1020;
+  left: 50px;
+  top: 10px;
+}
+.form-map .form-group{
+  height: 100%;
+}
+.form-map.active{
+  height: 100%;
+}
+.form-map .list-group-item{
+  font-size:10px;
+}
+
+@media (min-width: 920px){
+  .form-map{
+    width: calc(100% / 3);
+  }
+}

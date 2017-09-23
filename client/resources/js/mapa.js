@@ -568,7 +568,7 @@ function buildMarker(coordinates, properties){
     var marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
     marker.data.icon = L.divIcon({className: "leaflet-div-icon-point point-blue" });
     marker.data.popup = content;
-    
+    marker.data.properties = properties;
     return marker;
 }
 
