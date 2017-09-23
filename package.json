@@ -4,13 +4,7 @@
   "description": "Herramienta para la consolidación de la información dispersa y relevante al sismo.",
   "main": "server.js",
   "dependencies": {
-    "cartodb": "^0.5.1",
-    "express": "^4.15.4",
-    "geojson-validation": "^0.1.6",
-    "kmz-geojson": "^0.1.0",
-    "node-schedule": "^1.2.5",
-    "socket.io": "^2.0.3",
-    "xmldom": "^0.1.27"
+    "express": "^4.15.4"
   },
   "devDependencies": {},
   "scripts": {
