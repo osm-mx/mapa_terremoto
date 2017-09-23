@@ -5,16 +5,18 @@ var radiusMarker = 3;
 $(function(){
     initMap("map");
     
-    window.searchMplImages();
     addBuildingsData();
     addAcopioData();
     addAlberguesData();
     addOfrezcoNecesitoData();
+    addMplData();
 });
 
 
 function addMplData(geojson){
-    mapillaryLayer.addData(geojson);
+    $.get("/resources/data/mapillary/data.geojson", function(geojson){
+        mapillaryLayer.addData(JSON.parse(geojson));
+    });
 }
 
 

@@ -4,7 +4,9 @@
   "description": "Herramienta para la consolidación de la información dispersa y relevante al sismo.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "node-schedule": "^1.2.5",
+    "request": "^2.82.0"
   },
   "devDependencies": {},
   "scripts": {
