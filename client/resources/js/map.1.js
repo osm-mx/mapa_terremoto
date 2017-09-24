@@ -336,8 +336,9 @@ function initMap(id){
     }).bindPopup(function (layer) {
         var properties = layer.feature.properties;
         var clientId = "dmMtOThHZkp6TzdwYW1qaFZLc1J3UTpiZTlkYjUwMjc3NmMzNGI1";
-        var url = "https://embed-v1.mapillary.com/embed?show_segmentation=false&version=1&filter=%5B%22all%22%5D&map_filter=%5B%22all%22%5D&image_key=" + properties.key + "&client_id=" + clientId + "&style=photo";
-        return "<div style='overflow: hidden;' ><iframe width=\"480\" height=\"320\" src=\"" + url + "\" frameborder=\"0\"></iframe><br><button style=\"float:right;background-color: #4CAF50;border: none;color: white;padding: 5px 11px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;\" onclick=\"window.open('" + url + "','_blank','resizable=yes')\">Open in Mapillary</button></div>"
+        var embedUrl = "https://embed-v1.mapillary.com/embed?show_segmentation=false&version=1&filter=%5B%22all%22%5D&map_filter=%5B%22all%22%5D&image_key=" + properties.key + "&client_id=" + clientId + "&style=photo";
+        var linkUrl = "http://mapillary.com/map/im/" + properties.key;
+        return "<div style='overflow: hidden;' ><iframe width=\"480\" height=\"320\" src=\"" + embedUrl + "\" frameborder=\"0\"></iframe><br><button style=\"float:right;background-color: #4CAF50;border: none;color: white;padding: 5px 11px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;\" onclick=\"window.open('" + linkUrl + "','_blank','resizable=yes')\">Open in Mapillary</button></div>"
     }, {maxWidth: "480px"});
     
     
