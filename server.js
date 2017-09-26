@@ -5,14 +5,20 @@ var http = require('http').Server(app);
 var path = require('path');
 var schedule = require('node-schedule');
 
+// updaters
+var mapillaryUpdater = require('./updaters/mapillary');
+var gobUpdater = require('./updaters/gob_mx');
+
+
 //setup
 app.set('port', process.env.PORT || 22345);
 app.use(express.static(path.join(__dirname, 'client')));
 
 
-//gupdates 
-schedule.scheduleJob('59 * * * *', function(){
-    require('./update').updateCrowdData();
+//gupdates
+schedule.scheduleJob('05 * * * *', function(){
+    mapillaryUpdater.update();
+    gobUpdater.updateAll();
 });
 
 
