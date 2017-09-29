@@ -1,3 +1,7 @@
+window.downloadEscuelas = function(){
+	geojsonToCsv(escuelasLayer.toGeoJSON(), "escuelas_reanudan_clases");
+}
+
 window.downloadEdificios = function(){
 	geojsonToCsv(buildingExportLayer.toGeoJSON(), "edificios_afectados");
 }
