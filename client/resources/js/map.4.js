@@ -112,6 +112,7 @@ function addBuildingsData(){
 
         buildingExportLayer.addData(geojson);
         buildingsLayer.ProcessView();
+        $("#chargingDialog").modal('hide');
     });
 
     $.get("/resources/data/gob.mx/edificios_oficial.geojson", function(geojson){
