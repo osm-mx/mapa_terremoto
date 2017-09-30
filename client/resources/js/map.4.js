@@ -1,4 +1,4 @@
-var map, drawLayer, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer, evaluacionLayer, escuelasLayer, osmCamLayer;
+var map, drawLayer, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer, evaluacionLayer, escuelasLayer, osmCamLayer, nasaLayer;
 var buildingExportLayer;
 var radiusMarker = 3;
 
@@ -13,7 +13,40 @@ $(function(){
     addEvaluacionEstructural();
     addEscuelasLayer();
     addOsmCamData();
+    addNasaData();
 });
+
+function addNasaData(){
+
+    $.get("/resources/data/nasa/positions.json", function(positions){
+        var feature, image, anchors, latLngBounds;
+        for(var i = 0; i < positions.kml.Document.Folder.Document.length; i++){
+            feature = positions.kml.Document.Folder.Document[i];
+            latLngBounds = feature.GroundOverlay.LatLonBox;
+
+            // TopLeft, TopRight, BottomRight, BottomLeft
+            anchors = [
+                [latLngBounds.north, latLngBounds.west],
+                [latLngBounds.north, latLngBounds.east],
+                [latLngBounds.south, latLngBounds.east],
+                [latLngBounds.south, latLngBounds.west]
+            ];
+            image = "/resources/data/nasa/" + feature.GroundOverlay.name;
+
+            transformedImage = L.imageTransform(image, anchors, {});
+            transformedImage.addTo(nasaLayer);
+        }
+    });
+
+    //
+/*
+    transformedImage = L.imageTransform('/resources/data/nasa/DPM_Raboso_S1_s1_01_c0.55g1_T1H0B0U1_dpm.png', anchors, {  });
+
+    transformedImage.addTo(map);
+
+    map.fitBounds(transformedImage.getBounds());
+    */
+}
 
 function addOsmCamData(){
     $.get("/resources/data/osmcam/juchitan.json", function(data){
@@ -462,10 +495,14 @@ function initMap(id){
     }, {maxWidth: "480", minWidth:"400"});
 
 
+    nasaLayer = L.layerGroup().addTo(map);
+
+
     buildingExportLayer = L.geoJSON();
 
     layerControl.addOverlay(buildingsLayer, "Edificios afectados");
     layerControl.addOverlay(evaluacionLayer, "Evaluacion de edificios afectados");
+    layerControl.addOverlay(nasaLayer, "NASA (análisis - áreas probablemente dañadas)");
 
     layerControl.addOverlay(alberguesLayer, "Albergues");
     layerControl.addOverlay(acopioLayer, "Centros de acopio");
