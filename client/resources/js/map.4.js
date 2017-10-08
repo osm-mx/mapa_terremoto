@@ -94,6 +94,11 @@ function addEvaluacionEstructural(){
 
 function addMplData(geojson){
   $.getJSON("/resources/data/mapillary/data.geojson", function(geojson){
+
+    var link;
+    for(var i = 0; i < geojson.features.length; i++){
+      geojson.features[i].properties.imageLink = "https://d1cuyjsrcm0gby.cloudfront.net/" + geojson.features[i].properties.key + "/thumb-1024.jpg"
+    }
     mapillaryLayer.addData(geojson);
   });
 }
