@@ -1,3 +1,7 @@
+window.downloadTrabajadorxs = function(){
+	geojsonToCsv(trabajadorxsLayer.toGeoJSON(), "trabajadorxs_en_riesgo");
+}
+
 window.downloadEscuelas = function(){
 	geojsonToCsv(escuelasLayer.toGeoJSON(), "escuelas_reanudan_clases");
 }

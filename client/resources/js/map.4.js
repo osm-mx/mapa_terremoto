@@ -1,4 +1,4 @@
-var map, drawLayer, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer, evaluacionLayer, escuelasLayer, osmCamLayer, nasaLayer;
+var map, drawLayer, buildingsLayer, acopioLayer, alberguesLayer, ofrezcoLayer, necesitoLayer, mapillaryLayer, evaluacionLayer, escuelasLayer, osmCamLayer, nasaLayer, trabajadorxsLayer;
 var buildingExportLayer;
 var radiusMarker = 3;
 
@@ -14,7 +14,15 @@ $(function(){
   addEscuelasLayer();
   addOsmCamData();
   addNasaData();
+  addTrabajadorxsData();
 });
+
+
+function addTrabajadorxsData(){
+  $.getJSON("/resources/data/trabajadorxs/data.geojson", function(geojson){
+    trabajadorxsLayer.addData(geojson);
+  });
+}
 
 
 function addDAtaToLayer(layer, geojson, source){
@@ -498,8 +506,20 @@ function initMap(id){
 
   nasaLayer = L.layerGroup().addTo(map);
 
-
   buildingExportLayer = L.geoJSON();
+
+  trabajadorxsLayer = L.geoJSON(null, {
+    pointToLayer: function(geojsonPoint, latLng){
+      return L.circleMarker(latLng, {radius: radiusMarker, color: "#fc9462", fillColor: "#fc9462"});
+    }
+  }).bindPopup(function (layer) {
+    var properties = layer.feature.properties;
+
+    var content = "<b>" + properties.name + "</b>";
+    content += "<br>" + properties.description;
+
+    return content;
+  });
 
   layerControl.addOverlay(buildingsLayer, "Edificios afectados");
   layerControl.addOverlay(evaluacionLayer, "Evaluacion de edificios afectados");
@@ -507,6 +527,8 @@ function initMap(id){
 
   layerControl.addOverlay(alberguesLayer, "Albergues");
   layerControl.addOverlay(acopioLayer, "Centros de acopio");
+
+  layerControl.addOverlay(trabajadorxsLayer, "Trabajadorxs en riesgo");
 
   layerControl.addOverlay(mapillaryLayer, "Mapillary");
 
@@ -518,7 +540,7 @@ function initMap(id){
 
   map.on("overlayadd", function(e){
     if(e.name == "OpenStreetCam (Oaxaca y Chiapas)"){
-      map.flyToBounds(osmCamLayer.getBounds());
+      map.fitBounds(osmCamLayer.getBounds());
     }
   });
 }

@@ -1,207 +1,211 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Mapa comunitario</title>
+  <title>Mapa comunitario</title>
 
-        <meta property="og:url"                content="http://mapa.sismomexico.org/" />
-        <meta property="og:title"              content="Mapa comunitario" />
-        <meta property="og:description"        content="Herramienta para la consolidación de la información dispersa y relevante al sismo del 19 de septiembre del 2017" />
-        <meta property="og:image"              content="http://mapa.sismomexico.org/resources/img/map_preview.PNG" />
+  <meta property="og:url"                content="http://mapa.sismomexico.org/" />
+  <meta property="og:title"              content="Mapa comunitario" />
+  <meta property="og:description"        content="Herramienta para la consolidación de la información dispersa y relevante al sismo del 19 de septiembre del 2017" />
+  <meta property="og:image"              content="http://mapa.sismomexico.org/resources/img/map_preview.PNG" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <!-- Leaflet -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
-        <!-- Leaflet-Locate control-->
-        <link rel="stylesheet" href="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.css" />
-        <!-- Leaflet-PruneCluster -->
-        <link rel="stylesheet" href="resources/plugins/leaflet.PruneCluster/LeafletStyleSheet.css">
-        <!-- markers -->
-        <link rel="stylesheet" href="resources/plugins/vector-markers/dist/leaflet-vector-markers.css" />
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <!-- Leaflet-Locate control-->
+  <link rel="stylesheet" href="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.css" />
+  <!-- Leaflet-PruneCluster -->
+  <link rel="stylesheet" href="resources/plugins/leaflet.PruneCluster/LeafletStyleSheet.css">
+  <!-- markers -->
+  <link rel="stylesheet" href="resources/plugins/vector-markers/dist/leaflet-vector-markers.css" />
 
-        <link rel="stylesheet" href="resources/css/map.css" />
-    </head>
+  <link rel="stylesheet" href="resources/css/map.css" />
+</head>
 
-    <body>
-        <!-- Navigation bar -->
-        <nav class="navbar navbar-default navbar-fixed-top">
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
 
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand">
-                        Mapeo comunitario
-                    </a>
-                </div>
-
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li><a data-toggle="modal" href="#modalAbout">Acerca del mapa</a></li>
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">
+          Mapeo comunitario
+        </a>
+      </div>
 
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aportar información #Verificado19S <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScQsTKUAfTJizuKRn9frVO-vSqbP3lhI8y1J8cANs0B3-GNfA/viewform" ><span style='display:inline-block;'>&nbsp;Reporte de daños</span></a></li>
-                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScbX0JHs3OIdUNby9D2K8L60iKhlwlqsNYmDyVRr319trgucg/viewform" ><span style='display:inline-block;'>&nbsp;Centro de acopio</span></a></li>
-                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfprjEFTrEwk_rs5rH-c1E5CilxkkDul3LA_yvwULopvXXvtQ/viewform" ><span style='display:inline-block;'>&nbsp;Albergue</span></a></li>
-                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf6taNypeArf7dlqGViERJ-CoVPt0MRW8hwkjw3KtxEPnvd3Q/viewform" ><span style='display:inline-block;'>&nbsp;Transporte disponible a estados afectados</span></a></li>
-                                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScl1yvGq9rMYFZopo-wCuQxIDYjFEM3HfO7z7T6Vwy3315mmg/viewform" ><span style='display:inline-block;'>&nbsp;Voluntariado mapeo 19s</span></a></li>
-                            </ul>
-                        </li>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a data-toggle="modal" href="#modalAbout">Acerca del mapa</a></li>
 
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Descargar compilado de los datos <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><button class="btn btn-link" onclick="window.downloadEdificios();"><span style='display:inline-block;'>&nbsp;Edificios afectados</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadEdificios();"><span style='display:inline-block;'>&nbsp;Evaluacion edificios afectados</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadAlbergues();"><span style='display:inline-block;'>&nbsp;Albergues</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadAcopio();"><span style='display:inline-block;'>&nbsp;Centros de acopio</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadMapillary();"><span style='display:inline-block;'>&nbsp;Mapillary</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadOfrezco();"><span style='display:inline-block;'>&nbsp;Ofrezco ayuda</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadNecesito();"><span style='display:inline-block;'>&nbsp;Necesito ayuda</span></button></li>
-                                <li><button class="btn btn-link" onclick="window.downloadEscuelas();"><span style='display:inline-block;'>&nbsp;Escuelas que reanudan clases</span></button></li>
-                            </ul>
-                        </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aportar información #Verificado19S <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScQsTKUAfTJizuKRn9frVO-vSqbP3lhI8y1J8cANs0B3-GNfA/viewform" ><span style='display:inline-block;'>&nbsp;Reporte de daños</span></a></li>
+              <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScbX0JHs3OIdUNby9D2K8L60iKhlwlqsNYmDyVRr319trgucg/viewform" ><span style='display:inline-block;'>&nbsp;Centro de acopio</span></a></li>
+              <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfprjEFTrEwk_rs5rH-c1E5CilxkkDul3LA_yvwULopvXXvtQ/viewform" ><span style='display:inline-block;'>&nbsp;Albergue</span></a></li>
+              <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf6taNypeArf7dlqGViERJ-CoVPt0MRW8hwkjw3KtxEPnvd3Q/viewform" ><span style='display:inline-block;'>&nbsp;Transporte disponible a estados afectados</span></a></li>
+              <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScl1yvGq9rMYFZopo-wCuQxIDYjFEM3HfO7z7T6Vwy3315mmg/viewform" ><span style='display:inline-block;'>&nbsp;Voluntariado mapeo 19s</span></a></li>
+            </ul>
+          </li>
 
-                    </ul>
-
-                    <!-- Right -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="https://github.com/miguelsalazar/mapeo_colaborativo" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Github</a>
-                        </li>
-                    </ul>
-
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+          <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_FimpG8IBt-3RKR-DliYKp-m9YFJBISNCjCgC7zXurrbG9Q/viewform">Reporte Trabajadorxs en riesgo</a></li>
 
 
-        <!-- Content -->
-        <div class="container" id="mapContainer">
-            <form class="form-map">
-                <div class="form-group">
-                    <input id="search" name="search" type="text" class="form-control" placeholder="Buscar">
-                </div>
-            </form>
-            <div id="map"></div>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Descargar compilado de los datos <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><button class="btn btn-link" onclick="window.downloadEdificios();"><span style='display:inline-block;'>&nbsp;Edificios afectados</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadEdificios();"><span style='display:inline-block;'>&nbsp;Evaluacion edificios afectados</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadAlbergues();"><span style='display:inline-block;'>&nbsp;Albergues</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadAcopio();"><span style='display:inline-block;'>&nbsp;Centros de acopio</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadMapillary();"><span style='display:inline-block;'>&nbsp;Mapillary</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadOfrezco();"><span style='display:inline-block;'>&nbsp;Ofrezco ayuda</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadNecesito();"><span style='display:inline-block;'>&nbsp;Necesito ayuda</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadEscuelas();"><span style='display:inline-block;'>&nbsp;Escuelas que reanudan clases</span></button></li>
+              <li><button class="btn btn-link" onclick="window.downloadTrabajadorxs();"><span style='display:inline-block;'>&nbsp;Trabajadorxs en riesgo</span></button></li>
+            </ul>
+          </li>
+
+        </ul>
+
+        <!-- Right -->
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="https://github.com/miguelsalazar/mapeo_colaborativo" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Github</a>
+          </li>
+        </ul>
+
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- Content -->
+  <div class="container" id="mapContainer">
+    <form class="form-map">
+      <div class="form-group">
+        <input id="search" name="search" type="text" class="form-control" placeholder="Buscar">
+      </div>
+    </form>
+    <div id="map"></div>
+  </div>
+
+
+
+  <!-- Modals -->
+  <!-- About -->
+  <div id="modalAbout" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <!-- Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Acerca del mapa</h4>
         </div>
 
+        <!-- Body -->
+        <div class="modal-body">
+          <div class="content">
+            <!-- modal tabs -->
+            <p class="text-justify">Mapa libre, abierto y colaborativo de <a target="_blank" href="http://www.openstreetmap.mx/">OpenStreetMap</a>.</p>
+
+            Fuentes actuales:
+            <ul class="list-group">
+              <li class="list-group-item"><a target="_blank" href="https://www.gob.mx/">www.gob.mx</a></li>
+              <li class="list-group-item"><a target="_blank" href="http://google.org/crisismap/google.com/puebla-mexico-earthquake-es?hl=en&llbox=19.6919%2C19.0311%2C-98.0696%2C-99.8274&t=ROADMAP&layers=1%2C31%2C32%2C6%2C7%2C49%2C15%2C2%2C44">Crisis map</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://www.google.com/maps/d/u/0/viewer?mid=13B_gbt3e5RWk_6xQoQ15xxhGOFs&shorturl=1&ll=19.425243087912893%2C-99.14418954375003&z=13">Mapa de google maps</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://docs.google.com/spreadsheets/d/1vHrM6r3sO1f6ylsci_B7z08PrLsYKpG5VywjZXD6l5M/edit#gid=143622177">Manos a la obra</a></li>
+              <li class="list-group-item"><a target="_blank" href="http://www.congresonacionalindigena.org/2017/09/21/mensaje-del-congreso-nacional-indigena-concejo-indigena-gobierno/">Congreso Nacional Indígena</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://www.mapillary.com/">Mapillary</a></li>
+              <li class="list-group-item"><a target="_blank" href="http://www.verificado19s.org/">Verificado19s</a></li>
+              <li class="list-group-item"><a target="_blank" href="http://umap.openstreetmap.fr/es/map/reapertura-de-escuelas-cdmx-y-edomex_169104#12/19.4269/-99.1406">Mapa reapertura de escuelas</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://www.openstreetcam.org/">OpenStreetCam</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://www.jpl.nasa.gov/spaceimages/details.php?id=pia21963">NASA mapa de posibles daños</a></li>
+              <li class="list-group-item"><a target="_blank" href="https://www.google.com/maps/d/viewer?hl=es-MX&mid=1izw6o7LuOTZslQFL-aRNlaXdVHc&ll=18.189969166919575%2C-96.2962336&z=7">Trabajadorxs en riesgo</a></li>
+            </ul>
+
+            <p class="text-justify"><strong>Si tienes dudas, comentarios o propuestas de mejora agregalas en nuestro <a href="https://github.com/miguelsalazar/mapeo_colaborativo/issues" target="_blank">github</a></strong></p>
+            <!--<p class="text-justify">*Los datos automatizados se actualizan cada hora</p>-->
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 
-        <!-- Modals -->
-        <!-- About -->
-        <div id="modalAbout" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Acerca del mapa</h4>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <div class="content">
-                            <!-- modal tabs -->
-                            <p class="text-justify">Mapa libre, abierto y colaborativo de <a target="_blank" href="http://www.openstreetmap.mx/">OpenStreetMap</a>.</p>
-
-                            Fuentes actuales:
-                            <ul class="list-group">
-                                <li class="list-group-item"><a target="_blank" href="https://www.gob.mx/">www.gob.mx</a></li>
-                                <li class="list-group-item"><a target="_blank" href="http://google.org/crisismap/google.com/puebla-mexico-earthquake-es?hl=en&llbox=19.6919%2C19.0311%2C-98.0696%2C-99.8274&t=ROADMAP&layers=1%2C31%2C32%2C6%2C7%2C49%2C15%2C2%2C44">Crisis map</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.google.com/maps/d/u/0/viewer?mid=13B_gbt3e5RWk_6xQoQ15xxhGOFs&shorturl=1&ll=19.425243087912893%2C-99.14418954375003&z=13">Mapa de google maps</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://docs.google.com/spreadsheets/d/1vHrM6r3sO1f6ylsci_B7z08PrLsYKpG5VywjZXD6l5M/edit#gid=143622177">Manos a la obra</a></li>
-                                <li class="list-group-item"><a target="_blank" href="http://www.congresonacionalindigena.org/2017/09/21/mensaje-del-congreso-nacional-indigena-concejo-indigena-gobierno/">Congreso Nacional Indígena</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.mapillary.com/">Mapillary</a></li>
-                                <li class="list-group-item"><a target="_blank" href="http://www.verificado19s.org/">Verificado19s</a></li>
-                                <li class="list-group-item"><a target="_blank" href="http://umap.openstreetmap.fr/es/map/reapertura-de-escuelas-cdmx-y-edomex_169104#12/19.4269/-99.1406">Mapa reapertura de escuelas</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.openstreetcam.org/">OpenStreetCam</a></li>
-                                <li class="list-group-item"><a target="_blank" href="https://www.jpl.nasa.gov/spaceimages/details.php?id=pia21963">NASA mapa de posibles daños</a></li>
-                            </ul>
-
-                            <p class="text-justify"><strong>Si tienes dudas, comentarios o propuestas de mejora agregalas en nuestro <a href="https://github.com/miguelsalazar/mapeo_colaborativo/issues" target="_blank">github</a></strong></p>
-                            <!--<p class="text-justify">*Los datos automatizados se actualizan cada hora</p>-->
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-
+  <!-- Loading -->
+  <div class="modal fade" tabindex="-1" role="dialog"  id="chargingDialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4>Cargando...</h4>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              <span class="sr-only">Cargando...</span>
             </div>
+          </div>
         </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <!--    Moment    -->
+  <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!--Bootstrap-confirmation-->
+  <script src="resources/plugins/bootstrap.confirmation.js"></script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  <!-- MapQuest Tiles -->
+  <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ZJanp0xBDpPMOLftzxBrG1tzmNtsjPWF"></script>
+  <!-- Locate control-->
+  <script src="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.js" charset="utf-8"></script>
+  <!-- markers -->
+  <script src="resources/plugins/vector-markers/dist/leaflet-vector-markers.js" charset="utf-8"></script>
+  <!-- Leaflet.PruneCluster -->
+  <script src="resources/plugins/leaflet.PruneCluster/PruneCluster.js"></script>
+  <!-- Leaglet-image -->
+  <script src="resources/plugins/L.image.transform.js"></script>
 
 
-        <!-- Loading -->
-        <div class="modal fade" tabindex="-1" role="dialog"  id="chargingDialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4>Cargando...</h4>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                <span class="sr-only">Cargando...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+  <script src="resources/plugins/FileSaver.min.js"></script>
+  <script src="resources/plugins/jquery.bootcomplete.min.js"></script>
 
-        <!--    Moment    -->
-        <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-        <!-- Bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <!--Bootstrap-confirmation-->
-        <script src="resources/plugins/bootstrap.confirmation.js"></script>
-
-        <!-- Leaflet -->
-        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-        <!-- MapQuest Tiles -->
-        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ZJanp0xBDpPMOLftzxBrG1tzmNtsjPWF"></script>
-        <!-- Locate control-->
-        <script src="resources/plugins/leaflet-locatecontrol/L.Control.Locate.min.js" charset="utf-8"></script>
-        <!-- markers -->
-        <script src="resources/plugins/vector-markers/dist/leaflet-vector-markers.js" charset="utf-8"></script>
-        <!-- Leaflet.PruneCluster -->
-        <script src="resources/plugins/leaflet.PruneCluster/PruneCluster.js"></script>
-        <!-- Leaglet-image -->
-        <script src="resources/plugins/L.image.transform.js"></script>
-
-
-        <script src="resources/plugins/FileSaver.min.js"></script>
-        <script src="resources/plugins/jquery.bootcomplete.min.js"></script>
-
-        <script src="resources/js/app.js"></script>
-        <script src="resources/js/download.js"></script>
-        <script src="resources/js/map.4.js"></script>
-        <script src="resources/js/search.js"></script>
-    </body>
+  <script src="resources/js/app.js"></script>
+  <script src="resources/js/download.js"></script>
+  <script src="resources/js/map.4.js"></script>
+  <script src="resources/js/search.js"></script>
+</body>
 </html>
