@@ -4,6 +4,7 @@
   "description": "Herramienta para la consolidación de la información dispersa y relevante al sismo.",
   "main": "server.js",
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.0",
     "csv-parse": "^1.2.3",
     "express": "^4.15.4",
     "google-spreadsheet-to-json": "^1.0.0",
