@@ -1,0 +1,11 @@
+version: "3"
+services:
+
+  osm_mapa:
+    container_name: osm_mapa
+    build: .
+    image: leo/osm_mapa
+    environment:
+      - PORT=22350
+    ports:
+      - 22350:22350
