@@ -17,13 +17,13 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 
 //updates
-schedule.scheduleJob('05 * * * *', function(){
-  gobUpdater.updateAll();
-});
-schedule.scheduleJob('40 * * * *', function(){
-  mapillaryUpdater.update();
-  trabajadorxsUpdater.update();
-});
+//schedule.scheduleJob('05 * * * *', function(){
+//  gobUpdater.updateAll();
+//});
+//schedule.scheduleJob('40 * * * *', function(){
+//  mapillaryUpdater.update();
+//  trabajadorxsUpdater.update();
+//});
 
 
 //start

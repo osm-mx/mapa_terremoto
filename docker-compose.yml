@@ -9,3 +9,4 @@ services:
       - PORT=22350
     ports:
       - 22350:22350
+    restart: always
